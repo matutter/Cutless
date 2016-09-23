@@ -1,0 +1,34 @@
+{
+  "name": "dropnode",
+  "version": "0.0.0",
+  "description": "Dropnode | Network Automation",
+  "main": "dropnode.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matutter/dropnode.git"
+  },
+  "keywords": [
+    "node",
+    "network",
+    "awareness",
+    "automation",
+    "cluster",
+    "server",
+    "manager"
+  ],
+  "author": "matutter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matutter/dropnode/issues"
+  },
+  "homepage": "https://github.com/matutter/dropnode#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "less": "^2.7.1",
+    "mongoose": "^4.6.1",
+    "pug": "^2.0.0-beta6"
+  }
+}

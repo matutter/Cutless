@@ -1,0 +1,15 @@
+@import (reference) "../../node_modules/bootstrap-material-design/less/_colors.less";
+@import (reference) "mixin/dim.less";
+
+// fix for a .btn-fab in a navbar
+.navbar-nav {
+  li > a > .btn-fab {
+    margin: -15px -7.5px;
+    .set-dim-all(32px, 32px);
+  }
+
+  li > a > .btn {
+    color: #fff;
+    background-color: @indigo-700;
+  }
+}

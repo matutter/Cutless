@@ -1,0 +1,16 @@
+extends ../index.pug
+
+block navbar
+  //- hide navbar
+
+block css-local
+  +css-local('login')
+
+block body
+  #login.col-sm-6.col-sm-offset-3
+    p.text-right #[a(href='/login') Back to login]
+    .panel.panel-default.col-sm-12
+      h1 REGISTER
+      form.form-vertical(action='/register' method='POST')
+        include form.pug
+          button.btn.btn-raised.btn-primary(type='submit') Register

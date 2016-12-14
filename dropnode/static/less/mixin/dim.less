@@ -1,0 +1,20 @@
+// Only used as a mixin, not to be compiled.
+
+.set-dim-all(@width, @height) {
+  .set-dim-min(@width, @height);
+  .set-dim-max(@width, @height);
+  .set-dim(@width, @height);
+}
+.set-dim-min(@width, @height) {
+  min-height: @height;
+  min-width: @width;
+}
+.set-dim-max(@width, @height) {
+  max-height: @height;
+  max-width: @width;
+}
+.set-dim(@width, @height) {
+  height: @height;
+  width: @width;
+}
+

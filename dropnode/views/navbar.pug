@@ -1,0 +1,43 @@
+.navbar.navbar-inverse
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='#') Dropnode
+
+    .navbar-collapse.collapse.navbar-responsive-collapse
+
+      ul.nav.navbar-nav.navbar-right
+        if logged_in
+          li
+            a(href='/login')
+              .btn.btn-fab
+                +icon('person')
+        else
+          li
+            a(href='/login')
+              lab.btn-label Login
+              .btn.btn-fab
+                +icon('person_outline')
+
+
+    //- example
+      ul.nav.navbar-nav
+        li.active
+          a(href='#') Active
+
+        +dropdown('Droppy')
+          li
+            a(href='#') Linky
+ 
+    //- example
+      ul.nav.navbar-nav.navbar-right
+        +dropdown('DropDown')
+          li
+            a(href='#') Action
+          li.divider
+          li.dropdown-header header
+          li
+            a(href='#') Separated link

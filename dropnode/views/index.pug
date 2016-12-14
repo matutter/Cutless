@@ -1,0 +1,30 @@
+include mixins.pug
+doctype html
+html(lang="en")
+  head
+    block css-required
+      +css('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700')
+      +css('https://fonts.googleapis.com/css?family=Material+Icons')
+      +css('/css/bootstrap.min.css')
+      +css('/css/bootstrap-material-design.min.css')
+      +css('/css/ripples.min.css')
+      +css('/css/dropclient.css')
+
+    block css-optional
+    block css-local
+
+  body
+    block navbar
+      include navbar.pug
+
+    block body
+
+    block js-required
+      +js('/js/jquery.min.js' )
+      +js('/js/bootstrap.min.js' )
+      +js('/js/material.min.js' )
+      +js('/js/ripples.min.js' )
+      +js('/js/dropclient.js' )
+
+    block js-optional
+    block js-local

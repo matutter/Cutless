@@ -1,0 +1,24 @@
+mixin css(link)
+  link(rel='stylesheet' href=link)
+
+mixin css-local(page)
+  +css('/css/local/'+page+'.css')
+
+mixin js(link)
+  script(type='text/javascript' src=link)
+
+mixin dropdown(text)
+  li.dropdown
+    a.dropdown-toggle(href='#'+text data-toggle='dropdown') #{text}
+      b.caret
+    ul.dropdown-menu(role='menu')
+      block
+
+mixin icon(name)
+  i.material-icons #{name}
+
+mixin toggle(checked)
+  .togglebutton
+    label.inverse
+      input(type='checkbox' checked=checked)
+      block

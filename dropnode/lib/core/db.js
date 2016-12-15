@@ -10,18 +10,16 @@ mongoose.Promise = Promise
 * @param opts.host - Hostname for MongoDB server, or IP
 * @param opts.database - Database name
 */
-function Database(opts, logger) {
-  if(!opts)
+function Database(options) {
+  if(!options)
     throw new Error('Missing configuration')
 
-  this.port = opts.port || 27017
-  this.host = opts.host || 'localhost'
-  this.database = opts.database || 'dropnode'
+  this.port = options.port || 27017
+  this.host = options.host || 'localhost'
+  this.database = options.database || 'dropnode'
 
   this.model = mongoose.model
   this.Schema = mongoose.Schema
-  this.debug = logger.debug.bind(logger, 'DB:')
-  this.error = logger.error.bind(logger, 'DB:')
 }
 
 /**

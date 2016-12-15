@@ -6,12 +6,15 @@ process.chdir(__dirname)
 
 // dropnode libs
 const Config = require('./lib/config')
-const Logger = require('./lib/logger').Logger
 const App = require('./lib/app').App
+const core = require('./lib/core')
 
 Config.load('configs').then( config => {
-  const logger = new Logger(config.logger)
-  const app = new App(config, logger)
+  const api = new core.Dropnode({
+    db: config.database,
+    logging: config.logging
+  })
+  const app = new App(config, api)
 
   return app.listen().catch(logger.error)
 })

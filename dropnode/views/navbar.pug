@@ -12,12 +12,12 @@
       ul.nav.navbar-nav.navbar-right
         if logged_in
           li
-            a(href='/login')
+            a(href='/user/login')
               .btn.btn-fab
                 +icon('person')
         else
           li
-            a(href='/login')
+            a(href='/user/login')
               lab.btn-label Login
               .btn.btn-fab
                 +icon('person_outline')

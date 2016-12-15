@@ -17,13 +17,13 @@ function UserController(app) {
     session: true
   }, this.login.bind(this)))
 
-  this.get('/login', (req, res) => res.render('login/login.pug'))
-    .get('/register', (req, res) => res.render('login/register.pug'))
+  this.get('/user/login', (req, res) => res.render('user/login.pug'))
+    .get('/user/register', (req, res) => res.render('user/register.pug'))
 
     .use(passport.initialize())
     .use(passport.session())
-    .post('/login',
-      passport.authenticate('local', { failureRedirect: '/login' }),
+    .post('/user/login',
+      passport.authenticate('local', { failureRedirect: '/user/login' }),
       (req, res) => res.redirect('/')
     )
 }

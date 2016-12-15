@@ -6,7 +6,6 @@ const session = require('express-session')
 const express = require('express')
 const path = require('path')
 
-const Database = require('./database').Database
 const Server = require('./server.js')
 
 // feature controllers
@@ -18,16 +17,16 @@ var debug = console.log
 /**
 * Main application controller
 */
-function App(opts, logger) {
+function App(opts, api) {
   const app = express()
   const port = opts.server.port
   const s_opts = opts.session
   const server = Server.createServer(app, port)
-  const db = new Database(opts.database, logger)
+  //const db = new Database(opts.database, logger)
 
-  this.logger = () => logger
-  this.server = () => server
-  this.db = () => db
+  this.getLogger = api.getLogger
+  this.getDB = api.getDB
+  this.getServer = () => server
   this.all = app.all.bind(app)
   this.get = app.get.bind(app)
   this.use = app.use.bind(app)
@@ -70,23 +69,14 @@ function App(opts, logger) {
 };
 
 /**
-* Get a logger attached to the root logger.
-* @param name {String} Name of the logger to create, logs are prefixed with this string
-*/
-App.prototype.getLogger = function(name) {
-  logger = this.logger()
-  return logger.debug.bind(logger, name+':')
-};
-
-/**
 * Connects the MongoDB driver and begins listening to the config.server.port
 * @return Promise
 * @promise - Reference to the App object is supplied on success
 */
 App.prototype.listen = function() {
-  const server = this.server()
+  const server = this.getServer()
   
-  return this.db().connect()
+  return this.getDB().connect()
     .then(server.listen)
     .then(() => debug('listening on port', server.port))
     .then(() => this)

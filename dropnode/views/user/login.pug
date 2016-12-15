@@ -8,12 +8,12 @@ block css-local
 
 block body
   #login.col-sm-6.col-sm-offset-3
-    p.text-right Don't have an account? | #[a(href='/register') Register here]
+    p.text-right Don't have an account? | #[a(href='/user/register') Register here]
     .panel.panel-default.col-sm-12
       h1 SIGN IN
-      form.form-vertical(action='/login' method='POST')
+      form.form-vertical(action='/user/login' method='POST')
         include form.pug
           +toggle(false, 'inverse') Remember me
           button.btn.btn-raised.btn-primary(type='submit') Log in
 
-    a(href='/password/reset') Reset password
+    a(href='/user/password/reset') Reset password

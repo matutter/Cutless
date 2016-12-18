@@ -12,7 +12,8 @@ const Server = require('./server.js')
 const MainController = require('./controllers/main').MainController
 const UserController = require('./controllers/user').UserController
 
-var debug = console.log
+const debug = require('debug')('app')
+const debug_route = require('debug')('route')
 
 /**
 * Main application controller
@@ -24,16 +25,13 @@ function App(opts, api) {
   const server = Server.createServer(app, port)
   //const db = new Database(opts.database, logger)
 
-  this.getLogger = api.getLogger
-  this.getDB = api.getDB
+  this.api = api
   this.getServer = () => server
   this.all = app.all.bind(app)
   this.get = app.get.bind(app)
   this.use = app.use.bind(app)
   this.post = app.post.bind(app)
   this.param = app.param.bind(app)
-
-  debug = this.getLogger('app')
 
   s_opts.cookie = s_opts.cookie || {};
 
@@ -55,7 +53,7 @@ function App(opts, api) {
   app.use('/img', express.static('static/img/'));
 
   app.use((req, res, next) => {
-    this.logger().route(req.method, req.url)
+    debug_route('%s | %s', req.method, req.url)
     //res.locals.logged_in = true
     next()
   })
@@ -76,8 +74,8 @@ function App(opts, api) {
 App.prototype.listen = function() {
   const server = this.getServer()
   
-  return this.getDB().connect()
+  return this.api.db.connect()
     .then(server.listen)
-    .then(() => debug('listening on port', server.port))
+    .then(() => debug('listening on port %d', server.port))
     .then(() => this)
 };

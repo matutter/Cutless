@@ -1,5 +1,7 @@
 const inherits = require('../Controller.js').inherits
 
+var debug = require('debug')('app.main')
+
 module.exports.MainController = MainController
 
 function MainController(app) {
@@ -10,6 +12,6 @@ function MainController(app) {
 inherits(MainController)
 
 MainController.prototype.home = function(req, res) {
-  console.log(res.locals)
+  debug('locals=%o', res.locals)
   res.render('index.pug')
 };

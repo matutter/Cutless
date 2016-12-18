@@ -1,5 +1,5 @@
 module.exports.Database = Database
-
+const debug = require('debug')('db')
 const mongoose = require('mongoose')
 mongoose.Promise = Promise
 
@@ -11,6 +11,7 @@ mongoose.Promise = Promise
 * @param opts.database - Database name
 */
 function Database(options) {
+
   if(!options)
     throw new Error('Missing configuration')
 
@@ -20,6 +21,7 @@ function Database(options) {
 
   this.model = mongoose.model
   this.Schema = mongoose.Schema
+
 }
 
 /**
@@ -39,9 +41,9 @@ Database.prototype.uri = function() {
 Database.prototype.connect = function() {
   const uri = this.uri()
 
-  this.debug(`Connecting to ${uri}...`)
+  debug(`Connecting to ${uri}...`)
   return mongoose.connect(uri).then(() => {
-    this.debug(`Connected`)
+    debug(`Connected`)
     return this
   })
 };

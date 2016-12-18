@@ -5,7 +5,6 @@ module.exports.Dropnode = Dropnode
 
 //const user = require('user')
 const Database = require('./db.js').Database
-const Logging = require('./logging.js').Logging
 
 /**
 * @typedef Dropnode
@@ -14,11 +13,7 @@ const Logging = require('./logging.js').Logging
 */
 function Dropnode(options) {
   options = options || {}
-  this.logging = new Logging(options.logging || {} )
   this.db = new Database(options.db || {})
 
   this.user = null
-
-  // attach utility functions
-  this.getLogger = this.logging.getLogger
 }

@@ -10,7 +10,6 @@ var debug = console.log
 * @param app - Reference to app object
 */
 function Controller(app, name) {
-  debug = app.getLogger('controller')
   this.app = () => app
   this.name = name || 'Controller'
 }

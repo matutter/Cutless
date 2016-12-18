@@ -1,14 +1,14 @@
 const inherits = require('../Controller.js').inherits
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const debug = require('debug')('user')
 
 module.exports.UserController = UserController
 
-var debug = console.log
+
 
 function UserController(app) {
   UserController.super_.call(this, app)
-  debug = app.getLogger('User')
   debug('setting up auth')
 
   passport.use(new LocalStrategy({

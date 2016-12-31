@@ -1,8 +1,6 @@
 module.exports.App = App
 
-const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
-const session = require('express-session')
 const express = require('express')
 const path = require('path')
 
@@ -21,7 +19,7 @@ const debug_route = require('debug')('route')
 function App(opts, api) {
   const app = express()
   const port = opts.server.port
-  const s_opts = opts.session
+  //const s_opts = opts.session
   const server = Server.createServer(app, port)
   //const db = new Database(opts.database, logger)
 
@@ -33,10 +31,10 @@ function App(opts, api) {
   this.post = app.post.bind(app)
   this.param = app.param.bind(app)
 
-  s_opts.cookie = s_opts.cookie || {};
+  //s_opts.cookie = s_opts.cookie || {};
 
-  if(s_opts.cookie.secure)
-    app.set('trust proxy', 1)
+  //if(s_opts.cookie.secure)
+  //  app.set('trust proxy', 1)
 
   app.set('view engine', 'pug');
   app.set('views', './views');
@@ -53,14 +51,14 @@ function App(opts, api) {
   app.use('/img', express.static('static/img/'));
 
   app.use((req, res, next) => {
-    debug_route('%s | %s', req.method, req.url)
+    //debug_route('%s | %s', req.method, req.url)
     //res.locals.logged_in = true
     next()
   })
 
-  app.use(cookieParser());
+  //app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(session(s_opts));
+  //app.use(session(s_opts));
 
   this.main = new MainController(this);
   this.user = new UserController(this);

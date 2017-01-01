@@ -1,8 +1,8 @@
 {
   "name": "dropnode",
   "version": "0.0.0",
-  "description": "Dropnode | Network Automation",
-  "main": "dropnode/server/dropnode.js",
+  "description": "Dropnode",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "bash ./bin/debug.sh",
@@ -34,6 +34,7 @@
     "debug": "^2.4.4",
     "express": "^4.14.0",
     "ini": "^1.3.4",
+    "jquery": "^3.1.1",
     "less": "^2.7.1",
     "mongoose": "^4.6.1",
     "pug": "^2.0.0-beta6"

@@ -9,7 +9,7 @@ process.env['DEBUG'] = 'app*,db,user,route'
 // dropnode libs
 const Config = require('./lib/config')
 const App = require('./lib/app').App
-const core = require('../core')
+const core = require('./lib/core')
 
 Config.load('configs').then( config => {
   const api = new core.Dropnode({

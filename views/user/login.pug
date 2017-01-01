@@ -1,0 +1,20 @@
+extends ../index.pug
+
+block navbar
+  //- hide navbar
+
+block css-local
+  +css-local('login')
+
+block body
+  .container
+    .col-sm-6.col-sm-offset-3#login
+      p.text-right Don't have an account? | #[a(href='/user/register') Register here]
+        .well
+          h1 SIGN IN
+          form.form-vertical(action='/user/login' method='POST')
+            include form.pug
+              +toggle(false, 'inverse') Remember me
+              button.btn.btn-raised.btn-primary(type='submit') Log in
+
+      a(href='/user/password/reset') Reset password

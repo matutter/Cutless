@@ -11,7 +11,7 @@ gulp.task('monitor', function() {
   watch('./static/less/**/*.less', {
     name: 'less-css',
     events: ['add', 'change']
-  }, onLess)
+  }, compile_less)
 
   nodemon({
     script: './server.js',
@@ -28,7 +28,10 @@ gulp.task('monitor', function() {
 
 });
 
-function onLess(record) {
+gulp.task('compile_less', compile_less)
+
+function compile_less() {
   exec('bash ./bin/compile-less.sh', (e, out, err) =>
     debug_less( (e || err ) || out) )
 }
+

@@ -38,5 +38,10 @@
     "less": "^2.7.1",
     "mongoose": "^4.6.1",
     "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-watch": "^4.3.11"
   }
 }

@@ -5,7 +5,7 @@
 
 BIN=$(dirname ${BASH_SOURCE[0]})
 ROOT=$( readlink -f ${BIN}/.. )
-SOURCE=$ROOT/dropnode
+SOURCE=$ROOT
 
 LESS=$SOURCE/static/less
 CSS=$SOURCE/static/css

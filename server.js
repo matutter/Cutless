@@ -1,14 +1,12 @@
 // Global setup
-Promise = require('bluebird')
+global.Promise = require('bluebird')
 
 // ensure server is running here before relative imports
 process.chdir(__dirname)
 
-process.env['DEBUG'] = 'app*,db,user,route'
-
 // dropnode libs
 const Config = require('./lib/config')
-const App = require('./lib/app').App
+const App = require('./lib/app/app.js').App
 const core = require('./lib/core')
 
 Config.load('configs').then( config => {

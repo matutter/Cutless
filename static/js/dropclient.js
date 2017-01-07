@@ -5,6 +5,17 @@ $.dropclient = window.dropclient = new (function DropClient() {
   this.initever = false
   this.tasks = []
 
+  function handleError(xhr, status, e) {
+    console.log('Error', e, xhr.status)
+    if(xhr.responseJSON) {
+      var res = xhr.responseJSON
+      console.log(res)
+    }
+    //console.log(xhr, status, e)    
+  }
+  
+  this.handleError = handleError.bind(this)
+  
   this.init = function() {
     debug('dropclient', this.version)
     this.initever = true

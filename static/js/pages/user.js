@@ -1,5 +1,8 @@
 // js for pages /user/*
 
-$.dropclient.on('/user/login', function() {
-  window.location = '/'  
-})
+function loadHomePage() {
+  window.location = '/'
+}
+
+$.dropclient.on('/user/login', loadHomePage)
+$.dropclient.on('/user/register', loadHomePage)

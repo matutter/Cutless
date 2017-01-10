@@ -18,7 +18,8 @@ html(lang="en")
     block navbar
       include navbar.pug
 
-    block body
+    .body-fixed
+      block body
 
     block js-required
       +js('/js/jquery.min.js' )

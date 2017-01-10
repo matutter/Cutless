@@ -1,4 +1,4 @@
-process.env.DEBUG = 'app*,db,user,dn.*'
+process.env.DEBUG = 'app*,db,user,dn.*,less'
 
 const gulp = require('gulp')
 const exec_process = require('child_process').exec
@@ -31,7 +31,13 @@ gulp.task('monitor', function() {
 gulp.task('compile-less', compile_less)
 
 function compile_less() {
-  return exec_process('bash ./bin/compile-less.sh', (e, out, err) =>
-    debug_less( (e || err ) || out) )
+  debug_less('running')
+  try {
+      exec_process('bash ./bin/compile-less.sh', (e, out, err) => {
+      debug_less( (e || err ) || out)
+    })
+  } catch(e) {
+    debug_less(e)
+  }
 }
 

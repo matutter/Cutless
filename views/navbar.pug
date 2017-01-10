@@ -1,24 +1,25 @@
-.navbar.navbar-inverse
+.navbar.navbar-fixed-top.navbar-inverse
   .container-fluid
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='#') Dropnode
+      a.navbar-brand(href='/') Dropnode
 
     .navbar-collapse.collapse.navbar-responsive-collapse
 
       ul.nav.navbar-nav.navbar-right
-        if logged_in
+        if session
           li
-            a(href='/user/login')
+            a.withoutripple(href='/user/account')
+              .btn-label=session.user.name
               .btn.btn-fab
                 +icon('person')
         else
           li
-            a(href='/user/login')
-              lab.btn-label Login
+            a.withoutripple(href='/user/login')
+              .btn-label Login
               .btn.btn-fab
                 +icon('person_outline')
 

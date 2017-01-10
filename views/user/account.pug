@@ -1,0 +1,22 @@
+extends ../index.pug
+
+block body
+  .container
+
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-sm-12
+            h2 Account Settings
+          br
+        .row
+          .col-sm-4
+            h4 Avatar
+          .col-sm-8
+            .form-group
+              input#inputFile4(type='file', multiple='')
+              .input-group
+                input.form-control(type='text', readonly='', placeholder='Placeholder w/input-group...')
+                span.input-group-btn.input-group-sm
+                  button.btn.btn-fab.btn-fab-mini(type='button')
+                    i.mdi-editor-attach-file

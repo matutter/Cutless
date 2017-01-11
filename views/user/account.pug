@@ -12,17 +12,17 @@ block body-user
         .form-group.row
           .col-sm-12.text-center
             +placeholder('img-circle')
-        .col-sm-6.col-sm-offset-3
-          .form-group
-            input#inputFile4(type='file', multiple='')
-            .input-group
-              input.form-control(type='text', readonly='', placeholder='Upload new account image')
-              span.input-group-btn.input-group-sm
-                button.btn.btn-fab.btn-fab-mini(type='button')
-                  +icon('file_upload')
+        .form-group.row
+          .col-sm-6.col-sm-offset-3
+            .form-group.is-fileinput.text-center
+              input#account_image(type='file', multiple='')
+              .input-group
+                input.form-control(type='text', readonly='', placeholder='')
+                span.input-group-btn.input-group-sm
+                  button.btn.btn-fab.btn-fab-mini(type='button')
+                    +icon('file_upload')
+            p Files size must be no larger than #[code 200Kb]
 
-            
-      br
       h4 Email Settings
       hr
       .row

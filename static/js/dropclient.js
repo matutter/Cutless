@@ -72,7 +72,7 @@ $(function() {
   $.material.options.withRipples = [
     '.btn:not(.btn-link)',
     '.card-image',
-    '.btn.btn-fab:not(.withoutripple)',
+    '.btn:not(.withoutripple)',
     '.navbar a:not(.withoutripple)',
     '.dropdown-menu a',
     '.nav-tabs a:not(.withoutripple)',

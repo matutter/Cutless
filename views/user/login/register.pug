@@ -3,9 +3,9 @@ extends ./index.pug
 block body
   .container
     .col-sm-6.col-sm-offset-3#login
-      p.text-right #[a(href='/user/login') Back to login]
+      p.text-right #[a(href='/users/login') Back to login]
       .well
         h1 REGISTER
-        form.form-vertical(action='/user/register' method='POST')
+        form.form-vertical(action='/users/register' method='POST')
           include form.pug
             button.btn.btn-raised.btn-primary(type='submit') Register

@@ -4,7 +4,7 @@
 if(!window.dropclient) throw Error('This module must be loaded after dropclient.js!')
 
 $.dropclient.run(function(client) {
-  var offset = 70
+  var offset = 20; // space || margin between content and bottom nav
   var main = $('#main-content')
   var shadow = $('#navbar-shadow')
 

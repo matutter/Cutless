@@ -11,14 +11,23 @@
 
       ul.nav.navbar-nav.navbar-right
         if session
-          li
-            a.withoutripple(href='/user/account')
+          li.dropdown
+            a.dropdown-toggle(href="#" data-toggle='dropdown')
               .btn-label=session.user.name
-              .btn.btn-fab
+              .btn.btn-fab.withoutripple
                 +icon('person')
+            ul.dropdown-menu
+              li
+                a(href='/users/account') Account Settings
+              li.divider
+              li
+                form(method='post' action='/users/logout')
+                  input.hidden(name='name' value=session.user.name)
+                  button.btn.btn-block.btn-warning.mg-off(type='submit') Logout
+
         else
           li
-            a.withoutripple(href='/user/login')
+            a.withoutripple(href='/users/login')
               .btn-label Login
               .btn.btn-fab
                 +icon('person_outline')

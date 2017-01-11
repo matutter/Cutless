@@ -10,10 +10,10 @@
     .navbar-collapse.collapse.navbar-responsive-collapse
 
       ul.nav.navbar-nav.navbar-right
-        if session
+        if user
           li.dropdown
             a.dropdown-toggle(href="#" data-toggle='dropdown')
-              .btn-label=session.user.name
+              .btn-label=user.name
               .btn.btn-fab.withoutripple
                 +icon('person')
             ul.dropdown-menu
@@ -22,7 +22,7 @@
               li.divider
               li
                 form(method='post' action='/users/logout')
-                  input.hidden(name='name' value=session.user.name)
+                  input.hidden(name='name' value=user.name)
                   button.btn.btn-block.btn-warning.mg-off(type='submit') Logout
 
         else

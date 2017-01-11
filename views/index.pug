@@ -20,7 +20,7 @@ html(lang="en")
 
     #main-content.body-fixed
       block body
-      if session.user
+      if user
         block body-user
 
     block js-required
@@ -32,5 +32,5 @@ html(lang="en")
 
     block js-optional
       +js('/js/plugins/navbar_animation.js')
-      
+
     block js-local

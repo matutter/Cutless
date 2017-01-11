@@ -1,0 +1,10 @@
+extends ../../index.pug
+
+block css-local
+  +css-local('user')
+
+block body-user
+  #user-account.container.col-sm-offset-2.col-sm-8.col-xs-12
+    .well
+      include ./picture.pug
+      include ./email.pug

@@ -3,22 +3,34 @@ extends ../index.pug
 block css-local
   +css-local('user')
 
-block body
-  #user-account.container
-    .panel.panel-default
-      .panel-body
-        .row
-          .col-sm-12
-            h2.mg-no-t Account Settings
-        hr.divider
-        .row
-          .col-sm-3
-            label.strong Avatar
-          .col-sm-9
-            .form-group
-              input(type='file', multiple=false)
-              .input-group
-                input.form-control(type='text', readonly='', placeholder='...')
-                span.input-group-btn.input-group-sm
-                  button.btn.btn-fab.btn-fab-mini(type='button')
-                    +icon("editor-attach-file")
+block body-user
+  #user-account.container.col-sm-offset-2.col-sm-8.col-xs-12
+    .well
+      h4 Avatar
+      hr
+      .row
+        .form-group.row
+          .col-sm-12.text-center
+            +placeholder('img-circle')
+        .col-sm-6.col-sm-offset-3
+          .form-group
+            input#inputFile4(type='file', multiple='')
+            .input-group
+              input.form-control(type='text', readonly='', placeholder='Upload new account image')
+              span.input-group-btn.input-group-sm
+                button.btn.btn-fab.btn-fab-mini(type='button')
+                  +icon('file_upload')
+
+            
+      br
+      h4 Email Settings
+      hr
+      .row
+        .form-group.row
+          label.col-sm-2.control-label.strong(for='email') Primary Email
+          .col-sm-10
+            input#email.form-control(type='email', placeholder=session.user.email)
+
+        .form-group.row
+          .col-sm-12.text-right
+            button.btn.btn-primary.btn-raised Save

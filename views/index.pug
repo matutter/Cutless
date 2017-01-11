@@ -20,6 +20,8 @@ html(lang="en")
 
     .body-fixed
       block body
+      if session.user
+        block body-user
 
     block js-required
       +js('/js/jquery.min.js' )

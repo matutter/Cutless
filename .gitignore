@@ -1,3 +1,4 @@
 node_modules/
 static/css/
 *.log
+heapdump*

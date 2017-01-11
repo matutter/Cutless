@@ -37,9 +37,10 @@
     "validator": "^6.2.0"
   },
   "devDependencies": {
-    "less": "^2.7.1",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
-    "gulp-watch": "^4.3.11"
+    "gulp-watch": "^4.3.11",
+    "heapdump": "^0.3.7",
+    "less": "^2.7.1"
   }
 }

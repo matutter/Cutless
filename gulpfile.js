@@ -1,11 +1,14 @@
 process.env.DEBUG = 'app*,db,user,dn.*,less'
 
+const heapdump = require('heapdump')
 const gulp = require('gulp')
 const exec_process = require('child_process').exec
 const debug_less = require('debug')('less')
+const debug = require('debug')('dn.dbg')
 
 // stem the monitor race condition or multiple calls to a monitor
 const monitor_lock = false
+const with_heapdump = false
 
 gulp.task('monitor', function() {
   const nodemon = require('gulp-nodemon')
@@ -32,6 +35,17 @@ gulp.task('monitor', function() {
     }
   })
 
+  if(with_heapdump) {
+    first = setTimeout(() => {
+      debug('Taking first snapshot')
+      heapdump.writeSnapshot()
+    }, 2000)
+
+    second = setTimeout(() => {
+      debug('Taking second snapshot')
+      heapdump.writeSnapshot()
+    }, 15000)
+  }
 });
 
 gulp.task('compile-less', compile_less)

@@ -4,9 +4,15 @@ const gulp = require('gulp')
 const exec_process = require('child_process').exec
 const debug_less = require('debug')('less')
 
+// stem the monitor race condition or multiple calls to a monitor
+const monitor_lock = false
+
 gulp.task('monitor', function() {
   const nodemon = require('gulp-nodemon')
   const watch = require('gulp-watch')
+
+  if(monitor_lock) return
+  monitor_locks = true
 
   watch('./static/less/**/*.less', {
     name: 'less-css',

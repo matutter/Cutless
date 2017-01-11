@@ -18,7 +18,7 @@ html(lang="en")
     block navbar
       include navbar.pug
 
-    .body-fixed
+    #main-content.body-fixed
       block body
       if session.user
         block body-user
@@ -31,4 +31,6 @@ html(lang="en")
       +js('/js/dropclient.js' )
 
     block js-optional
+      +js('/js/plugins/navbar_animation.js')
+      
     block js-local

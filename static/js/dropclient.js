@@ -45,6 +45,25 @@ $.dropclient = window.dropclient = new (function DropClient() {
     }
     return this
   }
+
+  // polyfills
+
+  $.throttle = function(delay, cb) {
+    var timeout = null
+
+    return function(evt) {
+      if(timeout) {
+        return
+      } else {
+        timeout = setTimeout(function() {
+          clearTimeout(timeout)
+          timeout = null
+          cb(evt)
+        }, delay)
+      }
+    }
+  }
+
 })();
 
 $(function() {

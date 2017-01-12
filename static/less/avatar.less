@@ -1,0 +1,27 @@
+@import (reference) "mixin/dim.less";
+@import (reference) "mixin/shadow.less";
+
+.avatar {
+  span {
+    color: #fff;
+    display: inline-block;
+  }
+
+  img {
+    .set-dim-all(36px, 36px);
+    .set-shadow(@shadow-sm-b);
+    background-color: fade(#2a2a2a, 42%);
+    border-radius: 18px;
+  }
+
+  span + img, img + span{
+    margin-left: 15px;
+  }
+}
+
+// fix for avatar in navbar dropdown
+.navbar-nav >li {
+  &>a.dropdown-toggle.avatar {
+    padding: 7px 15px;
+  }
+}

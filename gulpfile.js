@@ -8,7 +8,6 @@ const debug = require('debug')('dn.dbg')
 
 // stem the monitor race condition or multiple calls to a monitor
 const monitor_lock = false
-const with_heapdump = false
 
 gulp.task('monitor', function() {
   const nodemon = require('gulp-nodemon')
@@ -35,25 +34,23 @@ gulp.task('monitor', function() {
     }
   })
 
-  if(with_heapdump) {
-    first = setTimeout(() => {
-      debug('Taking first snapshot')
-      heapdump.writeSnapshot()
-    }, 2000)
-
-    second = setTimeout(() => {
-      debug('Taking second snapshot')
-      heapdump.writeSnapshot()
-    }, 15000)
-  }
 });
 
 gulp.task('compile-less', compile_less)
 
+var heapdump_timeout = null
+gulp.task('heapdump', function() {
+  debug('Taking snapshots every 5 minutes')
+  if(heapdump_timeout) return
+  heapdump_timeout = setInterval(function() {
+    takeSnapshot()
+  }, 1000 * 60 *5)
+})
+
 function compile_less() {
   debug_less('running')
   try {
-      exec_process('bash ./bin/compile-less.sh', (e, out, err) => {
+    exec_process('bash ./bin/compile-less.sh', (e, out, err) => {
       debug_less( (e || err ) || out)
     })
   } catch(e) {
@@ -61,3 +58,10 @@ function compile_less() {
   }
 }
 
+function takeSnapshot() {
+  debug('Taking snapshot')
+  heapdump.writeSnapshot((e, filename) => {
+    if(e) debug(e)
+    debug('Written to %s', filename)
+  })
+}

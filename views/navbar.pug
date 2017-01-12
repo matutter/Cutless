@@ -12,10 +12,9 @@
       ul.nav.navbar-nav.navbar-right
         if user
           li.dropdown
-            a.dropdown-toggle(href="#" data-toggle='dropdown')
-              .btn-label=user.name
-              .btn.btn-fab.withoutripple
-                +icon('person')
+            a.dropdown-toggle.avatar(href="#" data-toggle='dropdown')
+              span=user.name
+              img(src='/img/misc/user_default_sm.png')
             ul.dropdown-menu
               li
                 a(href='/users/account') Account Settings
@@ -33,22 +32,3 @@
                 +icon('person_outline')
 
     #navbar-shadow
-
-    //- example
-      ul.nav.navbar-nav
-        li.active
-          a(href='#') Active
-
-        +dropdown('Droppy')
-          li
-            a(href='#') Linky
- 
-    //- example
-      ul.nav.navbar-nav.navbar-right
-        +dropdown('DropDown')
-          li
-            a(href='#') Action
-          li.divider
-          li.dropdown-header header
-          li
-            a(href='#') Separated link

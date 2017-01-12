@@ -1,10 +1,16 @@
 @import (reference) "../../node_modules/bootstrap-material-design/less/_colors.less";
 @import (reference) "mixin/dim.less";
 
+.navbar-header {
+  .navbar-brand {
+    height: 50px;
+    line-height: 20px;
+    padding: 15px;
+  }
+}
+
 // fix for a .btn-fab in a navbar
-.navbar-nav { 
-  max-height: 50px; 
-  
+.navbar-nav {
   li > a > .btn-fab {
     margin: -15px 0;
     .set-dim-all(32px, 32px);

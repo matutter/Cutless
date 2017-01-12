@@ -1,18 +1,17 @@
 .navbar.navbar-fixed-top.navbar-inverse
   .container-fluid
     .navbar-header
-      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-responsive-collapse')
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse.collapse')
         span.icon-bar
         span.icon-bar
         span.icon-bar
       a.navbar-brand(href='/') Dropnode
 
-    .navbar-collapse.collapse.navbar-responsive-collapse
-
+    .navbar-collapse.collapse
       ul.nav.navbar-nav.navbar-right
         if user
           li.dropdown
-            a.dropdown-toggle.avatar(href="#" data-toggle='dropdown')
+            a.dropdown-toggle.avatar(href="#" data-toggle='dropdown' )
               span=user.name
               img(src='/img/misc/user_default_sm.png')
             ul.dropdown-menu
@@ -26,9 +25,8 @@
 
         else
           li
-            a.withoutripple(href='/users/login')
-              .btn-label Login
-              .btn.btn-fab
-                +icon('person_outline')
+            a.avatar(href='/users/login')
+              span Sign In
+              img(src='/img/misc/user_default_sm.png')
 
     #navbar-shadow

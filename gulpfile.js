@@ -34,6 +34,8 @@ gulp.task('monitor', function() {
     }
   })
 
+  compile_less()
+  
 });
 
 gulp.task('compile-less', compile_less)

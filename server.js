@@ -5,19 +5,33 @@ global.Promise = require('bluebird')
 process.chdir(__dirname)
 
 // dropnode libs
-const Config = require('./lib/config')
-const App = require('./lib/app/app.js').App
-const core = require('./lib/core')
+const path = require('path');
+const mkdirp = require('mkdirp');
+const debug = require('debug')('dn.init')
+const opts = global.config = require('./node_config.json');
 
-Config.load('configs').then( config => {
-  const api = new core.Dropnode({
-    db: config.database,
-    logging: config.logging
+opts.tempdir = opts.tempdir || '/tmp/dropnode'
+opts.userdir = opts.userdir || '/tmp/dropnode/userdata'
+opts.userdir_images = path.join(opts.userdir, 'profile_images')
+
+mkdirp_important(opts.tempdir);
+mkdirp_important(opts.userdir);
+mkdirp_important(opts.userdir_images);
+
+const Dropnode = require('./lib/core')
+const App = require('./lib/app/app.js')
+
+const api = new Dropnode(global.config)
+const app = new App(api, global.config).listen(app => {
+  debug('listening on port %d', app.server.port)
+})
+
+function mkdirp_important(path) {
+  debug('ensure directory %s', path)
+  mkdirp(path, e => {
+    if(e) {
+      console.error(e)
+      exit(e.code || 1)
+    }
   })
-  const app = new App(config, api)
-
-  return app.listen()
-})
-.catch(e => {
-  console.error(e.message, e.stack)
-})
+}

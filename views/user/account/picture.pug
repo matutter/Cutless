@@ -1,15 +1,18 @@
 section
   h4 Account Picture
   hr
-  form.row
+  form.row(method='post' action='/users/account/image' enctype='multipart/form-data')
     .form-group.row
       .col-sm-12.text-center
-        +placeholder('img-circle')
+        if user.image_name
+          img.img-circle(src='/users/data/image/'+user.image_name width=200)
+        else
+          +placeholder('img-circle')
     .form-group.row
       .col-sm-6.col-sm-offset-3
         //- interesting-block File input
         .form-group.is-fileinput.text-center
-          input#account_image(type='file', multiple='')
+          input(type='file' multiple=false name='image')
           .input-group
             input.form-control(
               type='text'
@@ -20,4 +23,4 @@ section
         p Files size must be no larger than #[code 200Kb]
     .form-group.row
       .col-sm-12.text-right
-        button.btn.btn-primary.btn-raised Upload
+        button.btn.btn-primary.btn-raised(type='submit') Upload

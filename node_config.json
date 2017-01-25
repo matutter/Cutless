@@ -1,0 +1,20 @@
+{
+  "database": {
+    "host": "localhost",
+    "database": "dropnode",
+    "port": "27017"
+  },
+  "server": {
+    "port": "8080"
+  },
+  "session": {
+    "secret": "123aSDSA8123DASASDlkakfs12309fxx",
+    "resave": true,
+    "saveUninitialized": true,
+    "cookie": {
+      "secure": false
+    }
+  },
+  "tempdir": "/tmp/dropnode",
+  "userdir": "/tmp/dropnode/userdata"
+}

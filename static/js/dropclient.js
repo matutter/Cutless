@@ -10,9 +10,9 @@ $.dropclient = window.dropclient = new (function DropClient() {
   this.init = function() {
     debug('dropclient', this.version)
     this.initever = true
-    this.node = $('#dropnode')
+    this.node = $('#dropsite')
     if(this.node.length != 1) {
-      throw Error('Cannot select dropnode node.')
+      throw Error('Cannot select dropsite node.')
     }
     for(var i = 0; i < this.tasks.length; ++i) {
       var task = this.tasks[i]

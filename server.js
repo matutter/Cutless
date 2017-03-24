@@ -4,14 +4,14 @@ global.Promise = require('bluebird')
 // ensure server is running here before relative imports
 process.chdir(__dirname)
 
-// dropnode libs
+// dropsite libs
 const path = require('path');
 const mkdirp = require('mkdirp');
 const debug = require('debug')('dn.init')
 const opts = global.config = require('./node_config.json');
 
-opts.tempdir = opts.tempdir || '/tmp/dropnode'
-opts.userdir = opts.userdir || '/tmp/dropnode/userdata'
+opts.tempdir = opts.tempdir || '/tmp/dropsite'
+opts.userdir = opts.userdir || '/tmp/dropsite/userdata'
 opts.userdir_images = path.join(opts.userdir, 'profile_images')
 
 mkdirp_important(opts.tempdir);

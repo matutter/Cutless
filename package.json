@@ -1,5 +1,5 @@
 {
-  "name": "dropnode",
+  "name": "dropsite",
   "version": "0.0.0",
   "description": "Dropnode",
   "main": "server.js",
@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matutter/dropnode.git"
+    "url": "git+https://github.com/matutter/dropsite.git"
   },
   "keywords": [
     "drop",
     "node",
-    "dropnode"
+    "dropsite"
   ],
   "author": "matutter",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/matutter/dropnode/issues"
+    "url": "https://github.com/matutter/dropsite/issues"
   },
-  "homepage": "https://github.com/matutter/dropnode#readme",
+  "homepage": "https://github.com/matutter/dropsite#readme",
   "dependencies": {
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",

@@ -7,7 +7,7 @@ process.chdir(__dirname)
 // dropsite libs
 const path = require('path');
 const mkdirp = require('mkdirp');
-const debug = require('debug')('dn.init')
+const debug = require('debug')('ds.init')
 const opts = global.config = require('./node_config.json');
 
 opts.tempdir = opts.tempdir || '/tmp/dropsite'
@@ -18,10 +18,10 @@ mkdirp_important(opts.tempdir);
 mkdirp_important(opts.userdir);
 mkdirp_important(opts.userdir_images);
 
-const Dropnode = require('./lib/core')
-const App = require('./lib/app/app.js')
+const Site = require('./lib/core');
+const App = require('./lib/app/app.js');
 
-const api = new Dropnode(global.config)
+const api = new Site(global.config)
 const app = new App(api, global.config).listen(app => {
   debug('listening on port %d', app.server.port)
 })

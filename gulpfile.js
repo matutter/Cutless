@@ -1,4 +1,4 @@
-process.env.DEBUG = 'app*,db,user,dn.*,less'
+process.env.DEBUG = 'app*,db,user,ds.*,less'
 
 const heapdump = require('heapdump')
 const gulp = require('gulp')

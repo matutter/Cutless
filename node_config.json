@@ -1,7 +1,7 @@
 {
   "database": {
     "host": "localhost",
-    "database": "sitedrop",
+    "database": "dropsite",
     "port": "27017"
   },
   "server": {
@@ -15,6 +15,6 @@
       "secure": false
     }
   },
-  "tempdir": "/tmp/sitedrop",
-  "userdir": "/tmp/sitedrop/userdata"
+  "tempdir": "/tmp/dropsite",
+  "userdir": "/tmp/dropsite/userdata"
 }

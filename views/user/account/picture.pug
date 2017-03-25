@@ -5,7 +5,7 @@ section
     .form-group.row
       .col-sm-12.text-center
         if user.image_name
-          img.img-circle(src='/users/data/image/'+user.image_name width=200)
+          img.img-circle(src='/users/data/image/'+user.image_name width=200 height=200)
         else
           +placeholder('img-circle')
     .form-group.row

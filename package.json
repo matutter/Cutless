@@ -1,5 +1,5 @@
 {
-  "name": "dropsite",
+  "name": "sitedrop",
   "version": "0.0.0",
   "description": "Dropsite | A bare-bones web app template.",
   "main": "server.js",
@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matutter/dropsite.git"
+    "url": "git+https://github.com/matutter/sitedrop.git"
   },
   "keywords": [
     "drop",
     "node",
     "dropsite"
   ],
-  "author": "matutter",
+  "author": "matutter", 
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/matutter/dropsite/issues"
+    "url": "https://github.com/matutter/sitedrop/issues"
   },
-  "homepage": "https://github.com/matutter/dropsite#readme",
+  "homepage": "https://github.com/matutter/sitedrop#readme",
   "dependencies": {
     "bluebird"                  : "^3.4.6",
     "body-parser"               : "^1.15.2",

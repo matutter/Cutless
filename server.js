@@ -7,7 +7,7 @@ process.chdir(__dirname)
 // dropsite libs
 const path = require('path');
 const mkdirp = require('mkdirp');
-const debug = require('debug')('ds.init')
+const debug = require('debug')('sd.init')
 const opts = global.config = require('./node_config.json');
 
 opts.tempdir = opts.tempdir || '/tmp/dropsite'

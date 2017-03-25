@@ -13,7 +13,10 @@
           li.dropdown
             a.dropdown-toggle.avatar(href="#" data-toggle='dropdown' )
               span=user.name
-              img(src='/img/misc/user_default_sm.png')
+              if user.image_name
+                img.img-circle(src='/users/data/image/'+user.image_name)
+              else
+                img(src='/img/misc/user_default_sm.png')
             ul.dropdown-menu
               li
                 a(href='/users/account') Account Settings

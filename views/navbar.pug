@@ -14,7 +14,7 @@ nav.navbar.navbar-fixed-top.navbar-default
       ul.nav.navbar-nav.navbar-right
         if user
           li.dropdown
-            a.dropdown-toggle.avatar(href="#" data-toggle='dropdown' )
+            a.dropdown-toggle.avatar.ripple(href="#" data-toggle='dropdown' )
               span=user.name
               if user.image_name
                 img.img-circle(src='/users/data/image/'+user.image_name)
@@ -26,9 +26,9 @@ nav.navbar.navbar-fixed-top.navbar-default
               li
                 form(method='post' action='/users/logout')
                   input.hidden(name='name' value=user.name)
-                  button.btn(type='submit') Logout
+                  button.btn(type='submit') Log Out
         else
-          li
+          li.ripple
             a.avatar(href='/users/login')
               span Sign In
               img(src='/img/misc/user_default_sm.png')

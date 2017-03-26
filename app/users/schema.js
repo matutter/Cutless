@@ -21,6 +21,7 @@ const UserSchema = new Schema({
         message: '{VALUE} does not appear to be a valid email address.'
        }
     },
+    biography: { type: String },
     password_hash: { type: Buffer, required: true },
     password_salt: { type: Buffer, default: getFreshSalt },
     session_key: { type: String, default: getFreshSalt64 },

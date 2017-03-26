@@ -2,9 +2,11 @@
 @import (reference) "mixin/dim.less";
 @import (reference) "colors.less";
 
+@navbar_height: 50px;
+
 .navbar-header {
   .navbar-brand {
-    height: 50px;
+    height: @navbar_height;
     line-height: 20px;
     padding: 15px;
   }
@@ -15,16 +17,14 @@ nav.navbar-default {
   color: @c_default;
   font-weight: 600;
 
-  ul.nav.navbar-nav {
+
+  ul.nav.navbar-nav, ul.nav.navbar-nav .open {
 
     li > a {
       text-align: center;
-      border-bottom-width: 2px;
-      border-bottom-style: solid;
-      border-bottom-color: transparent;
     }
 
-    li:hover > a {
+    li:hover:not(.dropdown) > a {
       color: @c_primary;
       border-bottom-color: @c_primary;
     }
@@ -33,7 +33,11 @@ nav.navbar-default {
       ul.dropdown-menu {
         padding: 0;
         border-radius: 0;
+        border-top-width: 0;
+        border-color: @c_grey_more_light;
         li .btn, li a {
+          // fix for the padding when open in small window
+          padding: 5px 15px;
           border-radius: 0;
           border: 0;
           display: block;
@@ -53,7 +57,6 @@ nav.navbar-default {
 .navbar-default .navbar-nav>.open>a:focus,
 .navbar-default .navbar-nav>.open>a:hover {
   background-color: @c_background;
-  border-bottom-color: @c_primary;
   color: @c_primary;
 }
 
@@ -64,7 +67,7 @@ nav.navbar-default {
 
 #navbar-shadow {
   box-shadow: inset 0 5px 6px -3px rgba(0, 0, 0, 0.3);
-  top: 50px;
+  top: @navbar_height;
   left: 0;
   right: 0;
   height: 6px;

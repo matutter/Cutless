@@ -1,12 +1,12 @@
 section
   .box.row
-    .col-sm-2
+    .col-sm-2.avatar.avatar-lg.text-center
       if user.image_name
         img.img-circle(src='/users/data/image/'+user.image_name width=80 height=80)
       else
         +placeholder({
           class:'img-circle',
-          width:80,
+          width: 80,
           height: 80
         })
     .col-sm-7
@@ -15,11 +15,15 @@ section
         li=user.email
         li Member since #[+dateTime(user.createdAt)]
     .col-sm-3.text-right
-      a.btn.btn-lg.btn-default#edit-profile(
+      a.btn.btn-lg.btn-default.ripple#edit-profile(
         type='button',
         data-toggle='modal',
         data-target='#profile-edit-modal'
       ) Edit Profile
 
-block modals
+  .box.row.no-p.quill-editor
+    #biography-editor
+      
+
+block modals-user
   include ./profile_edit_modal.pug

@@ -10,7 +10,7 @@
     .set-dim-all(36px, 36px);
     .set-shadow(@shadow-sm-b);
     background-color: fade(#2a2a2a, 42%);
-    border-radius: 18px;
+    border-radius: 50%;
   }
 
   span + img, img + span {
@@ -26,6 +26,13 @@
       margin-left: 6px;
     }
   }
+
+  &.avatar-lg {
+    img {
+      .set-dim-all(80px, 80px);
+    }
+  }
+
 }
 
 // fix for avatar in navbar dropdown

@@ -4,8 +4,7 @@ html(lang="en")
   head
     block css-required
       +css('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700')
-      +css('https://fonts.googleapis.com/css?family=Material+Icons')
-      +css('/css/bootstrap.min.css')
+      +css('/vendor/css/bootstrap.min.css')
       +css('/css/dropclient.css')
 
     block css-optional
@@ -14,6 +13,8 @@ html(lang="en")
   body
 
     block modals
+    if user
+      block modals-user
 
     #dropsite.hidden
     block navbar
@@ -26,8 +27,8 @@ html(lang="en")
           block body-user
 
     block js-required
-      +js('/js/jquery.min.js' )
-      +js('/js/bootstrap.min.js' )
+      +js('/vendor/js/jquery.min.js' )
+      +js('/vendor/js/bootstrap.min.js' )
       +js('/js/dropclient.js' )
 
     block js-optional

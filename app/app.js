@@ -31,20 +31,20 @@ function App(api, opts) {
   app.set('view engine', 'pug');
   app.set('views', './views');
 
-  app.use('/js', static('/bootstrap/dist/js', true));
-  app.use('/css', static('/bootstrap/dist/css', true));
-  app.use('/fonts', static('/bootstrap/fonts', true));
+  app.use('/vendor/js', static('/bootstrap/dist/js', true));
+  app.use('/vendor/css', static('/bootstrap/dist/css', true));
+  app.use('/vendor/fonts', static('/bootstrap/fonts', true));
   
-  app.use('/js', static('/jquery/dist', true));
+  app.use('/vendor/js', static('/jquery/dist', true));
   app.use('/css', static('static/css/'));
   app.use('/js', static('static/js/'));
   app.use('/img', static('static/img/'));
 
-  app.use('/plugin/quill', static('/quill/dist', true))
+  app.use('/vendor/quill', static('/quill/dist', true))
 
 	app.use(sessions({
 		requestKey: 'session',
-		cookieName: 'dnses',
+		cookieName: 'ds_ses',
 		secret: 'secret1234',
 		duration: 24 * 60 * 60 * 1000,
 		activeDuration: 1000 * 60 * 5
@@ -111,6 +111,8 @@ function static(dirpath, isModule) {
 	if(isModule) {
 		dirpath = path.join(module_dir, dirpath)
 	}
+  
+  //debug('static %s', dirpath)
 	if(process.env.NODE_ENV == 'development') {
 		return express.static(dirpath, {etag: false})
 	} else {

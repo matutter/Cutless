@@ -53,6 +53,8 @@ nav.navbar-default {
 .navbar-default .navbar-nav>.open>a:focus,
 .navbar-default .navbar-nav>.open>a:hover {
   background-color: @c_background;
+  border-bottom-color: @c_primary;
+  color: @c_primary;
 }
 
 .navbar-collapse.in + #navbar-shadow,
@@ -77,11 +79,15 @@ nav.navbar-default {
 
   li a {
     background-color: @c_background;
-    color: @c_default;
+    color: @c_muted;
     padding: 0;
   }
 
-  li:hover a, li.active a {
+  li:hover:not(.active) a {
+    color: @c_default;
+  }
+
+  li.active a {
     color: @c_primary;
   }
 }

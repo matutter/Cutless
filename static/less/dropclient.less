@@ -1,10 +1,17 @@
 @import "misc.less";
 @import "navbar.less";
 @import "avatar.less";
+@import "components/button.less";
+@import "components/modals.less";
+@import "components/inputs.less";
 
 body, html {
-  color: @c_default;
+  color: @c_text_body;
   font-size: 16px;
+}
+
+h1, h2, h3, h4, h5 {
+  color: @c_text_heading;
 }
 
 .body-fixed {
@@ -32,4 +39,19 @@ h1 {
 
 .strong {
   font-weight: bold;
+}
+
+.box {
+  border: 2px solid #f1f1f1;
+  padding: 2rem 0;
+  display: block;
+}
+
+.list {
+  &.list-bare {
+    padding: 0;
+    li {
+      list-style: none;
+    }
+  }
 }

@@ -19,13 +19,7 @@ block body-user
           li.active
             a(href='/users/settings/profile') Profile
           li
-            a(href='/users/settings/security') Security
+            a(href='#disabled') Security
 
       .col-sm-10#settings-nav-target
         include ./profile.pug
-
-
-  //-
-    .well
-      include ./picture.pug
-      include ./email.pug

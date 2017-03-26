@@ -1,24 +1,25 @@
 section
-  .panel
+  .box.row
     .col-sm-2
-    .col-sm-8
-    .col-sm-2
-  //-
-    h4 Account Picture
-    hr
-    form.row(method='post' action='/users/settings/image' enctype='multipart/form-data')
-      .form-group.row
-        .col-sm-12.text-center
-          if user.image_name
-            img.img-circle(src='/users/data/image/'+user.image_name width=200 height=200)
-          else
-            +placeholder('img-circle')
-      .form-group.row
-        .col-sm-6.col-sm-offset-3
-          //- interesting-block File input
-          .form-group.is-fileinput.text-center
-            input.btn(type='file' multiple=false name='image')
-          p Files size must be no larger than #[code 200Kb]
-      .form-group.row
-        .col-sm-12.text-right
-          button.btn.btn-primary.btn-raised(type='submit') Upload
+      if user.image_name
+        img.img-circle(src='/users/data/image/'+user.image_name width=80 height=80)
+      else
+        +placeholder({
+          class:'img-circle',
+          width:80,
+          height: 80
+        })
+    .col-sm-7
+      h2.strong.no-m=user.name
+      ul.list.list-bare
+        li=user.email
+        li Member since #[+dateTime(user.createdAt)]
+    .col-sm-3.text-right
+      a.btn.btn-lg.btn-default#edit-profile(
+        type='button',
+        data-toggle='modal',
+        data-target='#profile-edit-modal'
+      ) Edit Profile
+
+block modals
+  include ./profile_edit_modal.pug

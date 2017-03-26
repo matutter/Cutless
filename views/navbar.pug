@@ -27,7 +27,6 @@ nav.navbar.navbar-fixed-top.navbar-default
                 form(method='post' action='/users/logout')
                   input.hidden(name='name' value=user.name)
                   button.btn(type='submit') Logout
-
         else
           li
             a.avatar(href='/users/login')

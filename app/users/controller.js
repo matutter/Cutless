@@ -19,6 +19,12 @@ const AccountEmailUpdateError = defineError(
   status: 406, // not acceptable
 })
 
+const AccountNameUpdateError = defineError(
+  'Invalid username', 
+  'The username you\'ve entered is empty or invalid.', {
+  status: 406, // not acceptable
+})
+
 AccountImageFormOptions = {
 	maxFields: 1,
 	autoFiles: true,
@@ -41,7 +47,7 @@ function UserController(app) {
 		.post('/users/register/json', this.register)
 		.post('/users/logout', this.logout)
 		.post('/users/settings/image', this.updateImage)
-		.post('/users/settings/email', this.updateEmail)
+		.post('/users/settings/profile', this.updateProfile)
 		.use('/users/data/image', express.static(global.config.userdir_images))
 }
 inherits(UserController)
@@ -76,19 +82,40 @@ UserController.prototype.updateImage = function(req, res, next) {
 	})
 }
 
-UserController.prototype.updateEmail = function(req, res, next) {
-	debug('attempting to update email setting')
+UserController.prototype.updateProfile = function(req, res, next) {
+	debug('attempting to update profile', req.body)
 	
 	const data = req.body || {};
 	const email = data.email;
+	const name = data.name;
 
-	if(!email || !validator.isEmail(email)) {
-		next(AccountEmailUpdateError)
-	} else {
-		res.locals.user.email = email;
+	var changed = false;
+
+	if(email && email.length) {
+		if(!validator.isEmail(email)) {
+			return next(AccountEmailUpdateError)
+		} else {
+			res.locals.user.email = email;
+			changed = true;
+		}
+	}
+
+	// TODO: this should be enforced in the schema
+	if(name && name.length) {
+		if(name.length < 3 || !name.match(/[a-zA-Z][a-zA-Z0-9-_. ]{2,}/)) {
+			return next(AccountNameUpdateError)
+		} else {
+			res.locals.user.name = name
+			changed = true;
+		}
+	}
+
+	if(changed) {
 		res.locals.user.save().then(() => {
 			res.redirect('/users/settings')
 		}).catch(next)
+	} else {
+		res.redirect('/users/settings')
 	}
 }
 

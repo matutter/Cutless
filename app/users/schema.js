@@ -25,6 +25,8 @@ const UserSchema = new Schema({
     password_salt: { type: Buffer, default: getFreshSalt },
     session_key: { type: String, default: getFreshSalt64 },
     image_name: { type: String }
+}, {
+  timestamps: true
 });
 
 UserSchema.pre('save', beforeSave)

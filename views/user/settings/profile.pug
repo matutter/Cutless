@@ -1,0 +1,24 @@
+section
+  .panel
+    .col-sm-2
+    .col-sm-8
+    .col-sm-2
+  //-
+    h4 Account Picture
+    hr
+    form.row(method='post' action='/users/settings/image' enctype='multipart/form-data')
+      .form-group.row
+        .col-sm-12.text-center
+          if user.image_name
+            img.img-circle(src='/users/data/image/'+user.image_name width=200 height=200)
+          else
+            +placeholder('img-circle')
+      .form-group.row
+        .col-sm-6.col-sm-offset-3
+          //- interesting-block File input
+          .form-group.is-fileinput.text-center
+            input.btn(type='file' multiple=false name='image')
+          p Files size must be no larger than #[code 200Kb]
+      .form-group.row
+        .col-sm-12.text-right
+          button.btn.btn-primary.btn-raised(type='submit') Upload

@@ -1,9 +1,17 @@
-const debug = require('debug')('ds.api.users')
+/**
+* This is the *users* module api exports. Module api's only export functions for interacting with their features.
+* The user module exports function for interacting with the users api such as login, logout, and other functions to
+* support how users interact with the site.
+*/
+
+const debug = require('debug')('ds.users.api')
 const validators = require('validator')
 const mongoose = require('mongoose')
-const Schema = require('./schemas').user
+const Schema = require('./schema.js')
 
 const User = mongoose.model('User', Schema);
+
+debug('loaded')
 
 const LoginUsernameError = defineError(
   'Unknown Email', 

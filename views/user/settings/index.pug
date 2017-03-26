@@ -1,0 +1,31 @@
+extends ../../index.pug
+
+block css-local
+  +css-local('user')
+
+block body-user
+  #users-settings.container.col-xs-12
+    .page-header
+      h1 Settings
+    .row
+      .col-sm-2
+        .nav.nav-stacked.dynamic-navigation(data-target='#settings-nav-target')
+          h4.strong.avatar.avatar-xs
+            if user.image_name
+              img.img-circle(src='/users/data/image/'+user.image_name)
+            else
+              img(src='/img/misc/user_default_sm.png')
+            span=user.name
+          li.active
+            a(href='/users/settings/profile') Profile
+          li
+            a(href='/users/settings/security') Security
+
+      .col-sm-10#settings-nav-target
+        include ./profile.pug
+
+
+  //-
+    .well
+      include ./picture.pug
+      include ./email.pug

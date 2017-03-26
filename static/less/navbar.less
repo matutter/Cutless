@@ -1,5 +1,6 @@
 @import (reference) "../../node_modules/bootstrap-material-design/less/_colors.less";
 @import (reference) "mixin/dim.less";
+@import (reference) "colors.less";
 
 .navbar-header {
   .navbar-brand {
@@ -9,17 +10,49 @@
   }
 }
 
-// fix for a .btn-fab in a navbar
-.navbar-nav {
-  li > a > .btn-fab {
-    margin: -15px 0;
-    .set-dim-all(32px, 32px);
-  }
+nav.navbar-default {
+  background-color: @c_background;
+  color: @c_default;
+  font-weight: 600;
 
-  li > a > .btn {
-    color: #fff;
-    background-color: @indigo-700;
+  ul.nav.navbar-nav {
+
+    li > a {
+      text-align: center;
+      border-bottom-width: 2px;
+      border-bottom-style: solid;
+      border-bottom-color: transparent;
+    }
+
+    li:hover > a {
+      color: @c_primary;
+      border-bottom-color: @c_primary;
+    }
+
+    li.dropdown {
+      ul.dropdown-menu {
+        padding: 0;
+        border-radius: 0;
+        li .btn, li a {
+          border-radius: 0;
+          border: 0;
+          display: block;
+          width: 100%;
+          background-color: @c_background;
+        }
+        li:hover .btn, li:hover a {
+          color: @c_primary;
+        }
+      }
+    }
   }
+}
+
+// remove default grey background on open dropdowns
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+  background-color: @c_background;
 }
 
 .navbar-collapse.in + #navbar-shadow,
@@ -37,4 +70,18 @@
   position: absolute;
   pointer-events: none;
   transition: opacity 500ms;
+}
+
+//vertical nav
+.nav.nav-stacked {
+
+  li a {
+    background-color: @c_background;
+    color: @c_default;
+    padding: 0;
+  }
+
+  li:hover a, li.active a {
+    color: @c_primary;
+  }
 }

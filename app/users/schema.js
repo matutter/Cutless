@@ -1,8 +1,10 @@
-const debug = require('debug')('ds.core.schemas.user')
+const debug = require('debug')('ds.users.schema')
 const validators = require('validator')
 const mongoose = require('mongoose')
 const crypto = require('crypto')
 const Schema = mongoose.Schema
+
+debug('loaded')
 
 const UserSchema = new Schema({
     name : {
@@ -69,4 +71,4 @@ function getFreshSalt64() {
   return getFreshSalt().toString('base64')
 }
 
-module.exports.schema = UserSchema
+module.exports = UserSchema

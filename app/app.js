@@ -8,8 +8,8 @@ const sessions = require('client-sessions')
 const createServer = require('./server.js').createServer
 
 // feature controllers
-const MainController = require('./controllers/main.js')
-const UserController = require('./controllers/user.js')
+const MainController = require('./core/main.js')
+const UserController = require('./users/controller.js')
 
 const debug = require('debug')('ds.app.server')
 //const debug_route = require('debug')('route')
@@ -33,9 +33,7 @@ function App(api, opts) {
 
   app.use('/js', static('/bootstrap/dist/js', true));
   app.use('/css', static('/bootstrap/dist/css', true));
-
-  app.use('/js', static('/bootstrap-material-design/dist/js', true));
-  app.use('/css', static('/bootstrap-material-design/dist/css', true));
+  app.use('/fonts', static('/bootstrap/fonts', true));
   
   app.use('/js', static('/jquery/dist', true));
   app.use('/css', express.static('static/css/'));

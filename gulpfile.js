@@ -25,7 +25,7 @@ gulp.task('monitor', function() {
     script: './server.js',
     watch: [
       './server.js',
-      './lib/'
+      './app/'
     ],
     ext: 'js',
     env: {

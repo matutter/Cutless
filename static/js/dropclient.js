@@ -67,18 +67,5 @@ $.dropclient = window.dropclient = new (function DropClient() {
 })();
 
 $(function() {
-
-  //$.material.options.withRipples: ".btn:not(.withoutripple), .btn:not(.btn-link),.card-image,.navbar a:not(.withoutripple),.dropdown-menu a,.nav-tabs a:not(.withoutripple),.withripple,.pagination li:not(.active):not(.disabled) a:not(.withoutripple)"
-  $.material.options.withRipples = [
-    '.btn:not(.btn-link)',
-    '.card-image',
-    '.btn:not(.withoutripple)',
-    '.navbar a:not(.withoutripple)',
-    '.dropdown-menu a',
-    '.nav-tabs a:not(.withoutripple)',
-    '.withripple',
-    '.pagination li:not(.active):not(.disabled) a:not(.withoutripple)'
-  ].join(', ')
-  $.material.init()
   $.dropclient.init()
 })

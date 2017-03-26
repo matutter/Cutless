@@ -1,15 +1,22 @@
-const inherits = require('./Controller.js').inherits
-const debug = require('debug')('ds.controller.user')
+/**
+* This is the users controller. A Controller module is a single "module" export which exports a single object which
+* may be instantiated with *new* and inheriting the Controller base class.
+* Controller define the routes which handle the interaction between requests & api.
+*/
+const inherits = require('../core/Controller.js').inherits
+const debug = require('debug')('ds.users.controller')
 const multiparty = require('multiparty')
 const validator = require('validator')
 const express = require('express')
 const path = require('path')
 const fs = require('fs')
 
+debug('loaded')
+
 const AccountEmailUpdateError = defineError(
   'Invalid address', 
   'The email you\'ve entered is empty or invalid.', {
-  status: 404,
+  status: 406, // not acceptable
 })
 
 AccountImageFormOptions = {
@@ -27,14 +34,14 @@ function UserController(app) {
   this
 		.get('/users/login', (req, res) => res.render('user/login/login.pug'))
     .get('/users/register', (req, res) => res.render('user/login/register.pug'))
-    .get('/users/account', (req, res) => res.render('user/account/'))
+    .get('/users/settings', (req, res) => res.render('user/settings/'))
 		.post('/users/login', this.login)
 		.post('/users/login/json', this.login)
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
 		.post('/users/logout', this.logout)
-		.post('/users/account/image', this.updateImage)
-		.post('/users/account/email', this.updateEmail)
+		.post('/users/settings/image', this.updateImage)
+		.post('/users/settings/email', this.updateEmail)
 		.use('/users/data/image', express.static(global.config.userdir_images))
 }
 inherits(UserController)
@@ -59,12 +66,12 @@ UserController.prototype.updateImage = function(req, res, next) {
 				if(e) return next(e)
 				res.locals.user.image_name = path.basename(filepath)
 				res.locals.user.save().then(() => {
-					res.redirect('/users/account')
+					res.redirect('/users/settings')
 				}).catch(next)
 			})
 			
 		} else {
-			res.redirect('/users/account')
+			res.redirect('/users/settings')
 		}
 	})
 }
@@ -80,7 +87,7 @@ UserController.prototype.updateEmail = function(req, res, next) {
 	} else {
 		res.locals.user.email = email;
 		res.locals.user.save().then(() => {
-			res.redirect('/users/account')
+			res.redirect('/users/settings')
 		}).catch(next)
 	}
 }
@@ -107,7 +114,7 @@ UserController.prototype.login = function(req, res, next) {
 };
 
 UserController.prototype.register = function(req, res, next) {
-	debug('attempting register', req.body)
+	debug('attempting register for "%s"', req.body.email)
 
 	if(res.locals.session) {
 		return res.json({ action: '/users/register', result: 0 })

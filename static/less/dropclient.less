@@ -2,6 +2,11 @@
 @import "navbar.less";
 @import "avatar.less";
 
+body, html {
+  color: @c_default;
+  font-size: 16px;
+}
+
 .body-fixed {
   position: fixed;
   display: block;
@@ -11,4 +16,20 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+
+// fixes FOUT
+.glyphicon {
+    width: 14px;
+    height: 14px;
+}
+
+h1 {
+  font-weight: 300;
+  -moz-osx-font-smoothing: inherit;
+  margin-bottom: 1.5rem;
+}
+
+.strong {
+  font-weight: bold;
 }

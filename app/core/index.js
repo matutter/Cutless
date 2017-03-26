@@ -8,7 +8,7 @@ mongoose.Promise = require('bluebird')
 module.exports = Dropnode
 
 const defineError = global.defineError = require('./error.js').defineError
-const users = require('./users.js')
+const users = require('../users/api.js')
 
 /**
 * @typedef Dropnode

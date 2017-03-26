@@ -1,5 +1,5 @@
-.navbar.navbar-fixed-top.navbar-inverse
-  .container-fluid
+nav.navbar.navbar-fixed-top.navbar-default
+  .container
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse.collapse')
         span.icon-bar
@@ -8,6 +8,9 @@
       a.navbar-brand(href='/') Dropsite
 
     .navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li
+          a(href="#") Link
       ul.nav.navbar-nav.navbar-right
         if user
           li.dropdown
@@ -19,12 +22,11 @@
                 img(src='/img/misc/user_default_sm.png')
             ul.dropdown-menu
               li
-                a(href='/users/account') Account Settings
-              li.divider
+                a(href='/users/settings') Settings
               li
                 form(method='post' action='/users/logout')
                   input.hidden(name='name' value=user.name)
-                  button.btn.btn-block.btn-warning.mg-off(type='submit') Logout
+                  button.btn(type='submit') Logout
 
         else
           li

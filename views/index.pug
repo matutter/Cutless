@@ -6,8 +6,6 @@ html(lang="en")
       +css('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700')
       +css('https://fonts.googleapis.com/css?family=Material+Icons')
       +css('/css/bootstrap.min.css')
-      +css('/css/bootstrap-material-design.min.css')
-      +css('/css/ripples.min.css')
       +css('/css/dropclient.css')
 
     block css-optional
@@ -19,15 +17,14 @@ html(lang="en")
       include navbar.pug
 
     #main-content.body-fixed
-      block body
-      if user
-        block body-user
+      .container
+        block body
+        if user
+          block body-user
 
     block js-required
       +js('/js/jquery.min.js' )
       +js('/js/bootstrap.min.js' )
-      +js('/js/material.min.js' )
-      +js('/js/ripples.min.js' )
       +js('/js/dropclient.js' )
 
     block js-optional

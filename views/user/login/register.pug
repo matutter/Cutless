@@ -1,7 +1,7 @@
 extends ./index.pug
 
 block body
-  .container
+  .container.text-center
     .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3#register
       .well
         h1 Sign Up
@@ -10,4 +10,4 @@ block body
           include form.pug
             button.btn.btn-lg.btn-block.btn-primary(type='submit') Sign Up
         hr
-      p Already have an account? #[a.btn(href='/users/login') Log In]
+      p Already have an account? #[a(href='/users/login') Log In]

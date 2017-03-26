@@ -36,9 +36,11 @@ function App(api, opts) {
   app.use('/fonts', static('/bootstrap/fonts', true));
   
   app.use('/js', static('/jquery/dist', true));
-  app.use('/css', express.static('static/css/'));
-  app.use('/js', express.static('static/js/'));
-  app.use('/img', express.static('static/img/'));
+  app.use('/css', static('static/css/'));
+  app.use('/js', static('static/js/'));
+  app.use('/img', static('static/img/'));
+
+  app.use('/plugin/quill', static('/quill/dist', true))
 
 	app.use(sessions({
 		requestKey: 'session',

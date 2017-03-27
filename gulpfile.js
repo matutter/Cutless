@@ -9,17 +9,22 @@ const debug = require('debug')('dn.dbg')
 // stem the monitor race condition or multiple calls to a monitor
 const monitor_lock = false
 
-gulp.task('monitor', function() {
-  const nodemon = require('gulp-nodemon')
-  const watch = require('gulp-watch')
+gulp.task('monitor', [ 'nodemon', 'lessmon' ]);
 
-  if(monitor_lock) return
-  monitor_locks = true
+gulp.task('lessmon', function() {
+  const watch = require('gulp-watch')
 
   watch('./static/less/**/*.less', {
     name: 'less-css',
     events: ['add', 'change']
   }, compile_less)
+
+  compile_less()
+
+});
+
+gulp.task('nodemon', function() {
+  const nodemon = require('gulp-nodemon')
 
   nodemon({
     script: './server.js',
@@ -32,10 +37,7 @@ gulp.task('monitor', function() {
       'NODE_ENV': 'development',
       'DEBUG': process.env.DEBUG
     }
-  })
-
-  compile_less()
-  
+  });
 });
 
 gulp.task('compile-less', compile_less)

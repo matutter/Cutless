@@ -40,8 +40,6 @@ function App(api, opts) {
   app.use('/js', static('static/js/'));
   app.use('/img', static('static/img/'));
 
-  app.use('/vendor/quill', static('/quill/dist', true))
-
 	app.use(sessions({
 		requestKey: 'session',
 		cookieName: 'ds_ses',

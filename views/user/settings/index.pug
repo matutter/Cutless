@@ -1,13 +1,10 @@
 extends ../../index.pug
 
 block js-local
-  +js('/vendor/quill/quill.min.js')
   +js('/js/pages/users/settings.js')
 
 block css-local
   +css-local('user')
-  +css('/vendor/quill/quill.snow.css')
-  +css('/css/quill-prefs.css')
 
 block body-user
   #users-settings.container.col-xs-12

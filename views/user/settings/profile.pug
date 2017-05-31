@@ -15,15 +15,11 @@ section
         li=user.email
         li Member since #[+dateTime(user.createdAt)]
     .col-sm-3.text-right
-      a.btn.btn-lg.btn-default.ripple#edit-profile(
+      a.btn.btn-lg.btn-default#edit-profile(
         type='button',
         data-toggle='modal',
         data-target='#profile-edit-modal'
       ) Edit Profile
-
-  .box.row.no-p.quill-editor
-    #biography-editor
-      
 
 block modals-user
   include ./profile_edit_modal.pug

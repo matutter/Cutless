@@ -4,14 +4,14 @@
 * support how users interact with the site.
 */
 
-const debug = require('debug')('ds.users.api')
-const validators = require('validator')
-const mongoose = require('mongoose')
-const Schema = require('./schema.js')
+const debug = require('debug')('ds.users.api');
+const validators = require('validator');
+const mongoose = require('mongoose');
+const Schema = require('./schema.js');
 
 const User = mongoose.model('User', Schema);
 
-debug('loaded')
+debug('loaded');
 
 const LoginUsernameError = defineError(
   'Unknown Email', 
@@ -88,9 +88,9 @@ function register(opts) {
       user.password_hash = password_hash
       // save the user and return it.
       return user.save().catch(e => {
-        return new RegistrationError().setError(e).reject()
+        return new RegistrationError().setError(e).reject();
       })
-    }).tap(debug)
+    }).tap(debug);
 }
 
 /**
@@ -106,11 +106,11 @@ function logout(opts, user) {
   } else {
     return User.findOne(opts).then(user => {
       if(user) {
-        return user.resetSession().return(true)
+        return user.resetSession().return(true);
       } else {
-        return new NoSuchUser().reject()
+        return new NoSuchUser().reject();
       }
-    })  
+    });
   }
 }
 
@@ -118,10 +118,10 @@ function logout(opts, user) {
 * Verify the user's session_key matches the currently dispatched one.
 */
 function verifySession(opts) {
-  return User.findOne({_id: opts._id, session_key: opts.session_key})
+  return User.findOne({_id: opts._id, session_key: opts.session_key});
 }
 
-module.exports.verifySession = verifySession
-module.exports.login = login
-module.exports.logout = logout
-module.exports.register = register
+module.exports.verifySession = verifySession;
+module.exports.login = login;
+module.exports.logout = logout;
+module.exports.register = register;

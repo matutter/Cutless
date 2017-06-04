@@ -4,7 +4,7 @@
 * Controller define the routes which handle the interaction between requests & api.
 */
 const inherits = require('../core/Controller.js').inherits
-const debug = require('debug')('ds.users.controller')
+const debug = require('debug')('app.users.controller')
 const multiparty = require('multiparty')
 const validator = require('validator')
 const express = require('express')
@@ -13,13 +13,13 @@ const fs = require('fs')
 
 debug('loaded')
 
-const AccountEmailUpdateError = defineError(
+const AccountEmailUpdateError = ApiError(
   'Invalid address', 
   'The email you\'ve entered is empty or invalid.', {
   status: 406, // not acceptable
 })
 
-const AccountNameUpdateError = defineError(
+const AccountNameUpdateError = ApiError(
   'Invalid username', 
   'The username you\'ve entered is empty or invalid.', {
   status: 406, // not acceptable
@@ -128,7 +128,7 @@ UserController.prototype.login = function(req, res, next) {
 
 	this.api.users.login(req.body).then(user => {
 		debug('login for %s success', user.name)
-
+		
 	 	// sets cookie
 		req.session.user = user.public()
 
@@ -137,7 +137,10 @@ UserController.prototype.login = function(req, res, next) {
 		} else {
 			res.redirect('/')
 		}
-	}).catch(next)
+		
+		return user;
+	}).then(user => this.api.events.users.create(user, `"${user.name}" logged in`, ['login']))
+		.catch(next)
 };
 
 UserController.prototype.register = function(req, res, next) {

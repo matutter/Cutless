@@ -4,31 +4,28 @@
 * support how users interact with the site.
 */
 
-const debug = require('debug')('ds.users.api');
+const debug = require('debug')('app.users.api');
 const validators = require('validator');
-const mongoose = require('mongoose');
-const Schema = require('./schema.js');
-
-const User = mongoose.model('User', Schema);
+const User = require('./model.js').UserModel;
 
 debug('loaded');
 
-const LoginUsernameError = defineError(
+const LoginUsernameError = ApiError(
   'Unknown Email', 
   'The email you entered doesn\'t belong to an account. Please check your email and try again.', {
   status: 404,
 })
-const LoginPasswordError = defineError(
+const LoginPasswordError = ApiError(
   'Incorrect Password',
   'Sorry, your password was incorrect. Please double-check your password.', {
   status: 401,
 })
-const NoSuchUser = defineError(
+const NoSuchUser = ApiError(
   'No such user',
   'The user specified does not exist', {
   status: 404
 })
-const RegistrationError = defineError(
+const RegistrationError = ApiError(
   'Registration Error', null, {
     setError : function(e) {
       // mongo db duplicate code error
@@ -62,8 +59,9 @@ function login(opts) {
       // hash password with user-unique salt
       return user.hashPassword(opts.password).then(password_hash => {
         // if salted passwords match return the user
-        if(password_hash && password_hash.equals(user.password_hash))
+        if(password_hash && password_hash.equals(user.password_hash)) {
           return user.resetSession()
+        }
 
         return new LoginPasswordError().reject()
       })

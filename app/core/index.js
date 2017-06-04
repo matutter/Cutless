@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const debug = require('debug')('ds.core')
+const debug = require('debug')('app.core')
 mongoose.Promise = require('bluebird')
 
 /**
@@ -7,8 +7,10 @@ mongoose.Promise = require('bluebird')
 */
 module.exports = Dropnode
 
-const defineError = global.defineError = require('./error.js').defineError
+const ApiError = global.ApiError = require('./error.js').ApiError
 const users = require('../users/api.js')
+const events = require('../events/api.js')
+
 
 /**
 * @typedef Dropnode
@@ -20,7 +22,8 @@ function Dropnode(opts) {
   this.host = opts.database.host || 'localhost'
   this.database = opts.database.database || 'dropsite'  
   this.uri = `mongodb://${this.host}:${this.port}/${this.database}`
-  this.users = users 
+  this.users = users;
+  this.events = events;
 }
 
 /**

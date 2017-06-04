@@ -1,13 +1,13 @@
-module.exports.defineError = defineError;
+module.exports.ApiError = ApiError;
 
 /**
 * Creates an error to be used as an error for a specific API call.
 * @param name {String} Name of error. (should be unique)
 * @param message {String} Message to display to users.
 */
-function defineError(name, message, opts) {
+function ApiError(name, message, opts) {
 
-  const DefinedErrorClass = function() {
+  const ApiErrorClass = function() {
     this.name = name || 'UnknownError'
     this.message = message || 'An uknown error occured'
     // sets the response statuscode, default is 400 for server errors
@@ -20,11 +20,11 @@ function defineError(name, message, opts) {
     this.bubble = true
   }
 
-  DefinedErrorClass.prototype.setRequest = opts.setRequest || setDefinedErrorRequest
-  DefinedErrorClass.prototype.setError = opts.setError || setDefinedOriginalError
-  DefinedErrorClass.prototype.reject = opts.reject || rejectAsPromise
+  ApiErrorClass.prototype.setRequest = opts.setRequest || setApiErrorRequest
+  ApiErrorClass.prototype.setError = opts.setError || setApiOriginalError
+  ApiErrorClass.prototype.reject = opts.reject || rejectAsPromise
   
-  return DefinedErrorClass
+  return ApiErrorClass
 }
 
 function rejectAsPromise() {
@@ -35,16 +35,17 @@ function rejectAsPromise() {
 * Sets the original error that was caught and handled.
 * @param error {Error} The error that was caught.
 */
-function setDefinedOriginalError(e) {
+function setApiOriginalError(e) {
   this.message = e.message
+  //this.original_error = e;
   return this
 }
 
 /**
-* Attached to *defineError* errors to add the request which triggered the error for troubleshooting purposes.
+* Attached to *ApiError* errors to add the request which triggered the error for troubleshooting purposes.
 * @param request {HttpRequest | HttpsRequest}
 */
-function setDefinedErrorRequest(req) {
+function setApiErrorRequest(req) {
   this.url = req.url
   this.method = req.method
   return this

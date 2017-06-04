@@ -1,6 +1,6 @@
 const inherits = require('./Controller.js').inherits
 
-var debug = require('debug')('ds.app.controller.main')
+var debug = require('debug')('app.core.main')
 
 module.exports = MainController
 

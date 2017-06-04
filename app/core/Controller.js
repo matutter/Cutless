@@ -1,5 +1,5 @@
 const util = require('util')
-const debug = require('debug')('ds.app.controller')
+const debug = require('debug')('app.core.controller')
 
 module.exports.inherits = inherits
 module.exports.Controller = Controller

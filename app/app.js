@@ -11,10 +11,8 @@ const createServer = require('./server.js').createServer
 const MainController = require('./core/main.js')
 const UserController = require('./users/controller.js')
 
-const debug = require('debug')('ds.app.server')
+const debug = require('debug')('app')
 //const debug_route = require('debug')('route')
-
-const module_dir = 'node_modules'
 
 /**
 * Main application controller
@@ -107,7 +105,7 @@ App.prototype.catchAll = function(e, req, res, next) {
 
 function static(dirpath, isModule) {
 	if(isModule) {
-		dirpath = path.join(module_dir, dirpath)
+		dirpath = path.join('node_modules', dirpath)
 	}
   
   //debug('static %s', dirpath)

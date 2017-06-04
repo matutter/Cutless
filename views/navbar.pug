@@ -5,7 +5,8 @@ nav.navbar.navbar-fixed-top.navbar-default
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.navbar-brand(href='/') Dropsite
+      a.navbar-brand(href='/')
+        span.glyphicon.glyphicon-home
 
     .navbar-collapse.collapse
       ul.nav.navbar-nav
@@ -16,10 +17,6 @@ nav.navbar.navbar-fixed-top.navbar-default
           li.dropdown
             a.dropdown-toggle.avatar(href="#" data-toggle='dropdown' )
               span=user.name
-              if user.image_name
-                img.img-circle(src='/users/data/image/'+user.image_name)
-              else
-                img(src='/img/misc/user_default_sm.png')
             ul.dropdown-menu
               li
                 a(href='/users/settings') Settings
@@ -31,6 +28,5 @@ nav.navbar.navbar-fixed-top.navbar-default
           li
             a.avatar(href='/users/login')
               span Sign In
-              img(src='/img/misc/user_default_sm.png')
 
     #navbar-shadow

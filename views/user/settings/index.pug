@@ -13,11 +13,7 @@ block body-user
     .row
       .col-sm-2
         .nav.nav-stacked.dynamic-navigation(data-target='#settings-nav-target')
-          h4.strong.avatar.avatar-xs
-            if user.image_name
-              img.img-circle(src='/users/data/image/'+user.image_name)
-            else
-              img(src='/img/misc/user_default_sm.png')
+          h4.strong
             span=user.name
           li.active
             a(href='/users/settings/profile') Profile

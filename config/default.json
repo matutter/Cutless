@@ -1,0 +1,26 @@
+{
+  "database": {
+    "host": "localhost",
+    "database": "dropsite",
+    "port": "27017"
+  },
+  "server": {
+    "port": "8080"
+  },
+  "session": {
+    "secret": "123aSDSA8123DASASDlkakfs12309fxx",
+    "resave": true,
+    "saveUninitialized": true,
+    "cookie": {
+      "secure": false
+    }
+  },
+  "noauth": [
+    "/users/login",
+    "/users/register",
+    "/",
+    "/favicon.ico",
+  ],
+  "tempdir": "/tmp/dropsite",
+  "userdir": "/tmp/dropsite/userdata"
+}

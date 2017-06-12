@@ -27,16 +27,18 @@ function App(api, opts) {
 	this.userdir = opts.userdir
 
   app.set('view engine', 'pug');
-  app.set('views', './views');
+  app.set('views', './public');
 
   app.use('/vendor/js', static('/bootstrap/dist/js', true));
+  app.use('/vendor/js', static('/tether/dist/js', true));
   app.use('/vendor/css', static('/bootstrap/dist/css', true));
+  app.use('/vendor/css', static('/tether/dist/css', true));
   app.use('/vendor/fonts', static('/bootstrap/fonts', true));
   
   app.use('/vendor/js', static('/jquery/dist', true));
-  app.use('/css', static('static/css/'));
-  app.use('/js', static('static/js/'));
-  app.use('/img', static('static/img/'));
+  app.use('/css', static('public'));
+  app.use('/js', static('public'));
+  //app.use('/img', static('public/img/'));
 
 	app.use(sessions({
 		requestKey: 'session',
@@ -44,28 +46,7 @@ function App(api, opts) {
 		secret: 'secret1234',
 		duration: 24 * 60 * 60 * 1000,
 		activeDuration: 1000 * 60 * 5
-	}))
-  
-  app.all('*', (req, res, next) => {
-    req.json = ~req.url.indexOf('json');
-    
-    if(req.session.user) {
-      this.api.users.verifySession(req.session.user).then( user => {
-        
-        if(user) {
-          req.session.user = user.public()
-          res.locals.user = user
-        } else {
-          res.locals.user = false          
-        }
-
-        next()
-      })
-    } else {
-      res.locals.session = false
-      next()
-    }
-  })
+	}));
   
   //app.use(cookieParser());
   app.use(bodyParser.urlencoded({ extended: true }));

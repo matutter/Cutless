@@ -5,10 +5,12 @@ global.Promise = require('bluebird');
 process.chdir(__dirname);
 
 // dropsite libs
+const os = require('os');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const debug = require('debug')('app.init');
-const opts = global.config = require('./node_config.json');
+const opts = global.config = require('./config/default.json');
+
 
 opts.tempdir = opts.tempdir || '/tmp/dropsite';
 opts.userdir = opts.userdir || '/tmp/dropsite/userdata';
@@ -23,7 +25,7 @@ const App = require('./app/app.js');
 
 const api = new Site(global.config);
 const app = new App(api, global.config).listen(app => {
-  debug('listening on port %d', app.server.port);
+  debug(`Available on ${app.server.port}`);
 });
 
 function mkdirp_important(path) {

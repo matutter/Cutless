@@ -19,15 +19,17 @@ const EventSchema = new Schema({
   tags : [String]
 }, options);
 
-EventSchema.pre('save', beforeSave)
 function beforeSave(next) {
-  debug(`${this.message} [${this.tags}]`)
+  debug(`${this.message} [${this.tags}]`);
   next();
 }
 
 const UserEventSchema = new Schema({
   user : { type: Schema.Types.ObjectId, ref: 'User' }
 }, options)
+
+EventSchema.pre('save', beforeSave)
+UserEventSchema.pre('save', beforeSave)
 
 const EventModel = mongoose.model('Event', EventSchema);
 const UserEventModel = EventModel.discriminator('user', UserEventSchema);

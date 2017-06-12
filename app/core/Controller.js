@@ -29,19 +29,19 @@ Controller.prototype.use = function(route, cb) {
 
 // creates prototypes for router_methods at runtime
 for (var i = 0; i < router_methods.length; ++i) {
-  const method_name = router_methods[i]
+  const method_name = router_methods[i];
   
   Object.defineProperty(Controller.prototype, method_name, {
     enumerable: false,
     value: function(route, cb, next_cb) {
       debug(method_name, route) 
-      if (next_cb) {
-        this.app[method_name](route, cb.bind(this), next_cb.bind(this))
+      if(next_cb) {
+        this.app[method_name](route, cb.bind(this), next_cb.bind(this));
       } else {
-        this.app[method_name](route, cb.bind(this))
+        this.app[method_name](route, cb.bind(this));
       }
       
-      return this
+      return this;
     }
   })
 }

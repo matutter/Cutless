@@ -4,4 +4,4 @@ static/css/
 heapdump*
 *.css
 *.css.map
-
+.sass-cache/

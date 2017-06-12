@@ -38,11 +38,11 @@ function UserController(app) {
   UserController.super_.call(this, app)
 	
   this
-		.get('/users/login', (req, res) => res.render('user/login/login.pug'))
-    .get('/users/register', (req, res) => res.render('user/login/register.pug'))
-    .get('/users/settings', (req, res) => res.render('user/settings/'))
-		.post('/users/login', this.login)
-		.post('/users/login/json', this.login)
+		.get('/users/login', (req, res) => res.render('users/login.pug'))
+    .get('/users/register', (req, res) => res.render('users/register.pug'))
+    .get('/users/settings', (req, res) => res.render('users/settings/'))
+		.post('/users/login', this.viewLogin)
+		.post('/users/login/json', this.headlessLogin)
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
 		.post('/users/logout', this.logout)
@@ -119,28 +119,26 @@ UserController.prototype.updateProfile = function(req, res, next) {
 	}
 }
 
-UserController.prototype.login = function(req, res, next) {
+UserController.prototype.viewLogin = function(req, res, next) {
+	this.login(req).then(user => {
+		res.redirect('/');
+	}).catch(next)
+}
+
+UserController.prototype.headlessLogin = function(req, res, next) {
+	this.login(req).then(user => {
+		res.json({ action: '/users/login', result: 1 })
+	}).catch(next)
+}
+
+UserController.prototype.login = function(req) {
   debug('attempting login', req.body)
 
-	if(res.locals.session) {
-		return res.json({ action: '/users/login', result: 0 })
-	}
-
-	this.api.users.login(req.body).then(user => {
-		debug('login for %s success', user.name)
-		
+	return this.api.users.login(req.body).then(user => {
 	 	// sets cookie
 		req.session.user = user.public()
-
-		if(req.json) {
-			res.json({ action:'/users/login', result:1 })
-		} else {
-			res.redirect('/')
-		}
-		
 		return user;
-	}).then(user => this.api.events.users.create(user, `"${user.name}" logged in`, ['login']))
-		.catch(next)
+	}).tap(user => this.api.events.users.create(user, `"${user.name}" logged in`, ['login']))
 };
 
 UserController.prototype.register = function(req, res, next) {

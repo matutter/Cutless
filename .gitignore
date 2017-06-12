@@ -2,3 +2,6 @@ node_modules/
 static/css/
 *.log
 heapdump*
+*.css
+*.css.map
+

@@ -1,32 +1,37 @@
-nav.navbar.navbar-fixed-top.navbar-default
-  .container
-    .navbar-header
-      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse.collapse')
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-brand(href='/')
-        span.glyphicon.glyphicon-home
+nav.navbar.navbar-toggleable-md.fixed-top.navbar-light.bg-faded
+  button.navbar-toggler.navbar-toggler-right.hidden-lg-up(
+    type='button'
+    data-toggle='collapse'
+    data-target='#navbar'
+    aria-controls='navbar'
+    aria-expanded='false'
+    aria-label='Toggle navigation'
+   )
+    span.navbar-toggler-icon
+  a.navbar-brand(href='/') Overview
+  #navbar.collapse.navbar-collapse
+  
+    ul.navbar-nav.mr-auto
+    
+      li.nav-item.active
+        a.nav-link(href='/') Home
+          span.sr-only(current)
+     
+    ul.navbar-nav
+      if user
+        li.nav-item.btn-group.dropdown
+          button.btn.btn-outline-success=user.name
+          button.btn.btn-outline-success.dropdown-toggle(
+            data-toggle='dropdown'
+            aria-haspopup='true'
+            aria-expanded='false'
+           )
+            span.sr-only Toggle Dropdown
+          .dropdown-menu.dropdown-menu-right
+            a.dropdown-item(href='#') Settings
+            .dropdown-divider
+            a.dropdown-item(href='#') Sign Out
 
-    .navbar-collapse.collapse
-      ul.nav.navbar-nav
-        li
-          a(href="#") Link
-      ul.nav.navbar-nav.navbar-right
-        if user
-          li.dropdown
-            a.dropdown-toggle.avatar(href="#" data-toggle='dropdown' )
-              span=user.name
-            ul.dropdown-menu
-              li
-                a(href='/users/settings') Settings
-              li
-                form(method='post' action='/users/logout')
-                  input.hidden(name='name' value=user.name)
-                  button.btn(type='submit') Log Out
-        else
-          li
-            a.avatar(href='/users/login')
-              span Sign In
+      else
+        a.btn.btn-outline-primary.my-2.my-sm-0(href='/users/login') Login
 
-    #navbar-shadow

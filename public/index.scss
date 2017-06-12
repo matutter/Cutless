@@ -1,0 +1,11 @@
+@import "variables";
+
+html, body {
+  //background-color: $gray-dark;
+  //color: lighten($gray-dark, 40%);
+}
+
+nav.navbar.fixed-top + #main-content {
+  padding-top: 50px;
+}
+

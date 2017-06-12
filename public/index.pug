@@ -5,33 +5,19 @@ html(lang="en")
     block css-required
       +css('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700')
       +css('/vendor/css/bootstrap.min.css')
-      +css('/css/dropclient.css')
-
-    block css-optional
+      +css('/css/index.css')
     block css-local
 
   body
-
-    block modals
-    if user
-      block modals-user
-
-    #dropsite.hidden
-    block navbar
+    block body
       include navbar.pug
-
-    #main-content.body-fixed
-      .container
-        block body
-        if user
-          block body-user
-
+      #main-content.container-fluid
+        .row
+          block main-content
+        
     block js-required
-      +js('/vendor/js/jquery.min.js' )
-      +js('/vendor/js/bootstrap.min.js' )
-      +js('/js/dropclient.js' )
-
-    block js-optional
-      +js('/js/plugins/navbar_animation.js')
-
+      +js('/vendor/js/jquery.min.js')
+      +js('/vendor/js/tether.min.js')
+      +js('/vendor/js/bootstrap.min.js')
+      +js('/js/index.js')
     block js-local

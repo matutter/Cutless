@@ -5,7 +5,8 @@ html(lang="en")
     block css-required
       +css('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700')
       +css('/vendor/css/bootstrap.min.css')
-      +css('/css/index.css')
+      +css('/vendor/css/font-awesome.min.css')
+      +css('/css/style/index.css')
     block css-local
 
   body
@@ -13,8 +14,10 @@ html(lang="en")
       include navbar.pug
       #main-content.container-fluid
         .row
+          if !user
+            block no-user-content
           block main-content
-        
+  
     block js-required
       +js('/vendor/js/jquery.min.js')
       +js('/vendor/js/tether.min.js')

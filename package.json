@@ -1,4 +1,3 @@
-
 {
   "name": "dropsite",
   "version": "0.0.0",
@@ -31,6 +30,7 @@
     "client-sessions": "^0.7.0",
     "debug": "^2.6.8",
     "express": "^4.15.3",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "mkdirp": "^0.5.1",
     "mongoose": "^4.10.4",

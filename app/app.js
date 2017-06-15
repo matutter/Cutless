@@ -33,7 +33,8 @@ function App(api, opts) {
   app.use('/vendor/js', static('/tether/dist/js', true));
   app.use('/vendor/css', static('/bootstrap/dist/css', true));
   app.use('/vendor/css', static('/tether/dist/css', true));
-  app.use('/vendor/fonts', static('/bootstrap/fonts', true));
+  app.use('/vendor/css', static('/font-awesome/css', true));
+  app.use('/vendor/fonts', static('/font-awesome/fonts', true));
   
   app.use('/vendor/js', static('/jquery/dist', true));
   app.use('/css', static('public'));

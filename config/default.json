@@ -17,9 +17,11 @@
   },
   "noauth": [
     "/users/login",
+    "/api/users/logout",
+    "/users/logout",
     "/users/register",
     "/",
-    "/favicon.ico",
+    "/favicon.ico"
   ],
   "tempdir": "/tmp/dropsite",
   "userdir": "/tmp/dropsite/userdata"

@@ -39,13 +39,14 @@ function UserController(app) {
 	
   this
 		.get('/users/login', (req, res) => res.render('users/login.pug'))
+		.get('/users/logout', (req, res) => res.render('users/logout.pug'))
     .get('/users/register', (req, res) => res.render('users/register.pug'))
-    .get('/users/settings', (req, res) => res.render('users/settings/'))
+    .get('/users/settings', (req, res) => res.render('users/settings.pug'))
 		.post('/users/login', this.viewLogin)
 		.post('/users/login/json', this.headlessLogin)
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
-		.post('/users/logout', this.logout)
+		.post('/api/users/logout', this.api_logout)
 		.post('/users/settings/image', this.updateImage)
 		.post('/users/settings/profile', this.updateProfile)
 		.use('/users/data/image', express.static(global.config.userdir_images))
@@ -161,20 +162,14 @@ UserController.prototype.register = function(req, res, next) {
 	}).catch(next)
 }
 
-UserController.prototype.logout = function(req, res, next) {
+UserController.prototype.api_logout = function(req, res, next) {
 	debug('attempting logout', req.body)
-
-	var user = res.locals.user
 
 	this.api.users.logout(req.body, res.locals.user).then(may_logout => {
 		
 		if(may_logout)
 			delete req.session.user
 
-		if(req.json) {
-			res.json({ action: '/users/logout', result: (may_logout ? 1: 0) })
-		} else {
-			res.redirect('/')
-		}
+		res.json({ action: '/api/users/logout', result: (may_logout ? 1: 0) })
 	}).catch(next)
 }

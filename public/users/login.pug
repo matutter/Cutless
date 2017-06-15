@@ -4,14 +4,18 @@ block css-local
   style
     include style/login.css
 
-block main-content
-  .container
-    form#form-sign-in(method='post' action='/users/login')
-      .col-12
-        .row
-          h2 Sign in
+block navbar-right
 
-        .row
+block no-user-content
+  .container
+    form#form-login(method='post' action='/users/login')
+      .row
+        .col-12
+          h2 Sign In
+          
+          hr
+
+        .col-12
           label.sr-only(for='email') Email address
           input.form-control(
             type='email'
@@ -28,8 +32,12 @@ block main-content
             required
           )
 
-        .row
+        .col-12
           button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
 
-        .row
-          a(href='/users/register') Click here to register
+        .col-12
+          .hr-with-text
+            .text or
+            hr
+        .col-12.text-center
+            a(href='/users/register') Click here to register

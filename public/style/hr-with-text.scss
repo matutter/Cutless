@@ -1,0 +1,18 @@
+@import "variables";
+
+.hr-with-text {
+  text-align: center;
+  display: block;
+  width: 100%;
+  
+  .text {
+    background-color: #fff;
+    display: inline-block;
+    padding: 5px;
+    border-radius: 2px;
+  }
+  
+  hr {
+    margin-top: -1rem;
+  }
+}

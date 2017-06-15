@@ -1,0 +1,39 @@
+@import "variables";
+@import "hr-with-text";
+
+html, body {
+  //background-color: $gray-dark;
+  //color: lighten($gray-dark, 40%);
+}
+
+nav.navbar.navbar-inverse {
+  .btn {
+    color: #fff;
+  }
+}
+
+#user-name {
+  padding: 0 15px;
+  margin-right: 6px;
+  border-right: 1px solid darken($blue, 5);
+}
+
+#nav-dropdown:hover {
+  cursor: pointer;
+  .fa {
+    color: #fff;
+  }
+}
+
+.dropdown-item .fa + span.fa-fit {
+  position: absolute;
+  left: 50px;
+}
+
+#nav-dropdown.dropdown-toggle:after {
+  display: none;
+}
+
+nav.navbar.fixed-top + #main-content {
+  padding-top: 50px;
+}

@@ -37,7 +37,7 @@ MainController.prototype.checkNoAuth = function(req) {
 }
 
 MainController.prototype.authorizationGate = function(req, res, next) {
-  if(res.locals.session || this.checkNoAuth(req)) {
+  if(res.locals.user || this.checkNoAuth(req)) {
     next();
   } else {
     res.status(403).send(`Forbidden: you may not access "${req.url}".`);

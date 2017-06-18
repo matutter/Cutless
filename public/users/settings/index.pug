@@ -1,0 +1,22 @@
+extends ../../index.pug
+
+block main-content
+
+  #settings-title.col-12
+    .text-center
+      block settings-title
+
+  #settings-nav.col-12
+    ul.nav.justify-content-center#page-nav
+      li.nav-item
+        a.nav-link(href='/users/settings/general') General
+      li.nav-item
+        a.nav-link(href='/users/settings/activity') Activity
+      li.nav-item
+        a.nav-link(href='/users/settings/security') Security
+
+  block settings-content
+  
+  block local-css
+    style
+      include style/user-settings.css

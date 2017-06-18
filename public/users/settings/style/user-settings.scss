@@ -1,0 +1,22 @@
+@import "_variables";
+
+#settings-nav {
+  #page-nav {
+    padding: 15px 0;
+    .active {
+      font-weight: bold;
+    }
+  }
+}
+
+.avatar-container {
+  border: 1px solid $input-border-color;
+  display: inline-block;
+  .avatar-image {
+    padding: $spacer;
+  }
+  .avatar-controls {
+    margin-right: -1px;
+    margin-bottom: -1px;
+  }
+}

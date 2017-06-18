@@ -49,9 +49,8 @@ function UserController(app) {
 		.post('/users/login/json', this.post_login_json)
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
-		.post('/users/logout/json', this.api_logout)
-		.post('/users/settings/image', this.updateImage)
-		.post('/users/settings/profile', this.updateProfile)
+		.post('/users/logout/json', this.post_logout_json)
+		.post('/users/settings/general', this.updateImage)
 		.use('/users/data/image', express.static(global.config.userdir_images))
 }
 inherits(UserController)
@@ -165,7 +164,7 @@ UserController.prototype.register = function(req, res, next) {
 	}).catch(next)
 }
 
-UserController.prototype.api_logout = function(req, res, next) {
+UserController.prototype.post_logout_json = function(req, res, next) {
 	debug('attempting logout', req.body)
 
 	this.api.users.logout(req.body, res.locals.user).then(may_logout => {

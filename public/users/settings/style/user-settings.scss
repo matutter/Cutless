@@ -10,13 +10,30 @@
 }
 
 .avatar-container {
+  width: 114px;
   border: 1px solid $input-border-color;
   display: inline-block;
   .avatar-image {
+    
+  }
+  .avatar-stand-in {
     padding: $spacer;
   }
   .avatar-controls {
-    margin-right: -1px;
-    margin-bottom: -1px;
+    position: relative;
+    opacity: 0;
+    display: none;
+    transition: opacity 0.2s ease-in-out;
+    .btn-group, .btn-group-vertical {
+      padding-bottom: 50%;
+      position: absolute;
+      padding-left: $spacer-x;
+    }
+  }
+  &:hover {
+    .avatar-controls {
+      opacity: 1;
+      display: block;
+    }
   }
 }

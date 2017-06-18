@@ -2,39 +2,47 @@ extends ./index.pug
 
 block settings-content
   .offset-3.col-6
-    form#general-form
+    form#general-settings(method='POST' action='/users/settings/general')
       .form-group.row
         label.col-2.col-form-label(for='#user-image') Image
         .col-10
           .avatar-container.rounded
-            .avatar-image
-              if user.image
-                span my image
-              else
-                .avatar-stand-in
-                  i.fa.fa-5x.fa-user-circle
             .avatar-controls.text-right
-              .btn-group(role='group', aria-label='Basic example')
-                button.btn.btn-sm.btn-secondary(type='button')
+              .collapse
+                input#image-input(type='file' data-target='#avatar-preview')
+              .btn-group-vertical(role='group', aria-label='Basic example')
+                button.btn.btn-sm(
+                  type='button'
+                  data-toggle='tooltip'
+                  data-placement='right'
+                  title='Delete current image'
+                )
+                  i.fa.fa-trash-o
+                button.btn.btn-sm.btn-primary#image-input-btn(
+                  type='button'
+                  data-toggle='tooltip'
+                  data-placement='right'
+                  data-target='#image-input'
+                  title='Upload a new image'
+                 )
                   i.fa.fa-upload
-                button.btn.btn-sm.btn-danger(type='button' disabled=!user.image)
-                  i.fa.fa-remove
-
-        //-.col-8
-          label.custom-file
-            input#user-image.custom-file-input(type='file')
-            span.custom-file-control
-
+            #avatar-preview.avatar-image.image-preview-container
+              .preview-image
+                if user.image
+                  span my image
+              .avatar-stand-in.default-image
+                i.fa.fa-5x.fa-user-circle
     
       .form-group.row
         label.col-2.col-form-label(for='username') Username
         .col-10
           input.form-control#username(type='text', value=user.name)
+      
       .form-group.row
         label.col-2.col-form-label(for='email') Email
         .col-10
           input.form-control#email(type='text', value=user.email)
-      //-.form-group.row
-        label.col-2.col-form-label(for='username') Username
-        .col-10
-          input.form-control#username(type='text', value=user.name)
+      
+      .form-group.row
+        .offset-2.col-10
+          button.btn.btn-primary(type='submit') Save Settings

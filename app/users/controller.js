@@ -41,12 +41,15 @@ function UserController(app) {
 		.get('/users/login', (req, res) => res.render('users/login.pug'))
 		.get('/users/logout', (req, res) => res.render('users/logout.pug'))
     .get('/users/register', (req, res) => res.render('users/register.pug'))
-    .get('/users/settings', (req, res) => res.render('users/settings.pug'))
-		.post('/users/login', this.viewLogin)
-		.post('/users/login/json', this.headlessLogin)
+    .get('/users/settings', (req, res) => res.redirect('/users/settings/general'))
+    .get('/users/settings/general', (req, res) => res.render('users/settings/general.pug'))
+    .get('/users/settings/activity', (req, res) => res.render('users/settings/activity.pug'))
+    .get('/users/settings/security', (req, res) => res.render('users/settings/security.pug'))
+		.post('/users/login', this.post_login)
+		.post('/users/login/json', this.post_login_json)
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
-		.post('/api/users/logout', this.api_logout)
+		.post('/users/logout/json', this.api_logout)
 		.post('/users/settings/image', this.updateImage)
 		.post('/users/settings/profile', this.updateProfile)
 		.use('/users/data/image', express.static(global.config.userdir_images))
@@ -120,13 +123,13 @@ UserController.prototype.updateProfile = function(req, res, next) {
 	}
 }
 
-UserController.prototype.viewLogin = function(req, res, next) {
+UserController.prototype.post_login = function(req, res, next) {
 	this.login(req).then(user => {
 		res.redirect('/');
 	}).catch(next)
 }
 
-UserController.prototype.headlessLogin = function(req, res, next) {
+UserController.prototype.post_login_json = function(req, res, next) {
 	this.login(req).then(user => {
 		res.json({ action: '/users/login', result: 1 })
 	}).catch(next)

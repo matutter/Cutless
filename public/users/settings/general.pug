@@ -5,28 +5,31 @@ block settings-content
     form#general-settings(method='POST' action='/users/settings/general')
       .form-group.row
         label.col-2.col-form-label(for='#user-image') Image
-        .col-10
-          .avatar-container.rounded
+        .col-10(style='min-height: 114px;')
+          #avatar-preview.avatar-container.image-preview-container.rounded
             .avatar-controls.text-right
               .collapse
                 input#image-input(type='file' data-target='#avatar-preview')
-              .btn-group-vertical(role='group', aria-label='Basic example')
-                button.btn.btn-sm(
+              .btn-group-vertical.btn-group-sm(role='group')
+                button.btn(
                   type='button'
                   data-toggle='tooltip'
                   data-placement='right'
                   title='Delete current image'
                 )
                   i.fa.fa-trash-o
-                button.btn.btn-sm.btn-primary#image-input-btn(
+                button.btn#image-preview-clear(
+                  type='button'
+                 )
+                  i.fa.fa-remove
+                button.btn.btn-primary#image-preview-btn(
                   type='button'
                   data-toggle='tooltip'
                   data-placement='right'
-                  data-target='#image-input'
                   title='Upload a new image'
                  )
                   i.fa.fa-upload
-            #avatar-preview.avatar-image.image-preview-container
+            .avatar-image
               .preview-image
                 if user.image
                   span my image

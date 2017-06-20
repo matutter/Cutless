@@ -14,7 +14,9 @@
   border: 1px solid $input-border-color;
   display: inline-block;
   .avatar-image {
-    
+    img {
+      border-radius: 3px;
+    }
   }
   .avatar-stand-in {
     padding: $spacer;
@@ -29,6 +31,9 @@
       position: absolute;
       padding-left: $spacer-x;
     }
+  }
+  &.active {
+    border-color: $blue;
   }
   &:hover {
     .avatar-controls {

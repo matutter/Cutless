@@ -1,49 +1,15 @@
-function updatePreviewImage() {
-  var input = $(this);
-  var target = $(input.attr('data-target'));
-  if(target.is('.image-preview-container')) {
-    var default_image = target.find('.default-image').first();
-    var preview_image = target.find('.preview-image').first();
-
-    if (input[0].files && input[0].files[0]) {
-      var reader = new FileReader();
-      var image_url = input[0].files[0];
-      
-      reader.addEventListener('load', function(e) {
-        default_image.fadeOut(function() {
-                  
-          var img = $(document.createElement('img'))
-            .attr('src', e.target.result).addClass('rounded img-fluid')
-            //.attr('width', 80)
-            //.attr('height', 80);
-          
-          preview_image.hide().empty().append(img).fadeIn();
-        });
-      });
-
-      reader.readAsDataURL(image_url);
-    }
-  }
-}
-
 $(document).ready(function() {
   
-  $('#image-input-btn').click(function(e) {
-    var target = $(this).attr('data-target');
-    var input = $(target);
-    var data = input.data();
-    input.trigger('click')
-    
-    if(data.has_this_event_listener)
-      return;
-    
-    data.has_this_event_listener = true;
-    
-    input.on('change', updatePreviewImage);
-  });
+  //SwapElements([$('#image-input-clear'), $('#image-input-btn')]);
+  
+  var file_preview = new FilePreview({
+    container: '#avatar-preview',
+    clear: '#image-preview-clear',
+    btn: '#image-preview-btn'
+  });  
   
   // enables tooltips
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip({trigger: 'hover'});
   
   //console.log('index - loaded');
   var page_links = $('#page-nav a');

@@ -6,6 +6,10 @@ html, body {
   //color: lighten($gray-dark, 40%);
 }
 
+.modal-header + .modal-footer {
+  border-top-width: 0;
+}
+
 nav.navbar.navbar-inverse {
   .btn {
     color: #fff;

@@ -2,27 +2,31 @@ extends ./index.pug
 
 block settings-content
   .offset-3.col-6
-    form#general-settings(method='POST' action='/users/settings/general')
+    form#general-settings(method='POST' action='/users/settings/general' enctype='multipart/form-data')
       .form-group.row
         label.col-2.col-form-label(for='#user-image') Image
         .col-10(style='min-height: 114px;')
           #avatar-preview.avatar-container.image-preview-container.rounded
             .avatar-controls.text-right
               .collapse
-                input#image-input(type='file' data-target='#avatar-preview')
-              .btn-group-vertical.btn-group-sm(role='group')
-                button.btn(
-                  type='button'
-                  data-toggle='tooltip'
-                  data-placement='right'
-                  title='Delete current image'
-                )
-                  i.fa.fa-trash-o
+                input#image-input(type='file' name='image' data-target='#avatar-preview')
+              .btn-group-vertical.btn-group-sm(role='group' data-toggle='buttons')
+                button.btn.p-0#delete-image-btn(
+                    type='button'
+                    data-toggle='tooltip'
+                    data-placement='right'
+                    title='Remove current image'
+                  )
+                    input#delete-image(type='checkbox' name='delete_image' autocomplete='off' stlye='display:none;')
+                    .fa-stack
+                      i.fa.fa-stack-1x.fa-trash-o
+                      .collapse
+                        i.fa.fa-stack-2x.text-danger.fa-ban
                 button.btn#image-preview-clear(
                   type='button'
                  )
                   i.fa.fa-remove
-                button.btn.btn-primary#image-preview-btn(
+                button.btn.text-primary#image-preview-btn(
                   type='button'
                   data-toggle='tooltip'
                   data-placement='right'
@@ -31,20 +35,21 @@ block settings-content
                   i.fa.fa-upload
             .avatar-image
               .preview-image
-                if user.image
-                  span my image
-              .avatar-stand-in.default-image
-                i.fa.fa-5x.fa-user-circle
+              .default-image
+                if user.hasImageResource()
+                  img.img-fluid(src='/userdata/profile_images/'+user.getImageAsResource())
+                .image-stand-in(class=user.hasImageResource()?"collapse":"")
+                  i.fa.fa-5x.fa-user-circle
     
       .form-group.row
         label.col-2.col-form-label(for='username') Username
         .col-10
-          input.form-control#username(type='text', value=user.name)
+          input.form-control#username(type='text' name='name' value=user.name)
       
       .form-group.row
         label.col-2.col-form-label(for='email') Email
         .col-10
-          input.form-control#email(type='text', value=user.email)
+          input.form-control#email(type='text' name='email' value=user.email)
       
       .form-group.row
         .offset-2.col-10

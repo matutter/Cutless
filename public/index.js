@@ -1,6 +1,22 @@
 $(document).ready(function() {
   
   //SwapElements([$('#image-input-clear'), $('#image-input-btn')]);
+  $('#delete-image-btn').click(function() {
+    var input = $(this).find('input:checkbox').first();
+
+    if(input.length != 1) {
+      throw new Error('No checkbox inside of element.', this);
+    }
+    
+    var checked = !(input[0].checked ? true : false);
+    var collapse = $(this).find('.collapse');
+    input.prop('checked', checked);
+    if(checked) {
+      collapse.show();
+    } else {
+      collapse.hide();
+    }
+  });
   
   var file_preview = new FilePreview({
     container: '#avatar-preview',

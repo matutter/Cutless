@@ -51,7 +51,7 @@ const RegistrationError = ApiError(
 * @return {models.User} User instance is returned on success else null or error.
 */
 function login(opts) {
-  debug('login for %s...', opts.email)
+  debug('login for %s...', opts.email);
   
   return User.findOne({email: opts.email}).then(user => {
     

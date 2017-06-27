@@ -3,39 +3,40 @@
 * may be instantiated with *new* and inheriting the Controller base class.
 * Controller define the routes which handle the interaction between requests & api.
 */
-const inherits = require('../core/Controller.js').inherits
-const debug = require('debug')('app.users.controller')
-const multiparty = require('multiparty')
-const validator = require('validator')
-const express = require('express')
-const path = require('path')
-const fs = require('fs')
+const inherits = require('../core/Controller.js').inherits;
+const debug = require('debug')('app.users.controller');
+const multiparty = require('multiparty');
+const validator = require('validator');
+const express = require('express');
+const path = require('path');
+const fs = require('fs');
 
-debug('loaded')
+debug('loaded');
 
 const AccountEmailUpdateError = ApiError(
   'Invalid address', 
   'The email you\'ve entered is empty or invalid.', {
   status: 406, // not acceptable
-})
+});
 
 const AccountNameUpdateError = ApiError(
   'Invalid username', 
   'The username you\'ve entered is empty or invalid.', {
   status: 406, // not acceptable
-})
+});
 
-AccountImageFormOptions = {
-	maxFields: 1,
+UserSettingsGeneralForm = {
+	maxFields: 4,
+	minFields: 1,
 	autoFiles: true,
 	maxFilesSize: 200000,
 	uploadDir: global.config.userdir_images
 };
 
-module.exports = UserController
+module.exports = UserController;
 
 function UserController(app) {
-  UserController.super_.call(this, app)
+  UserController.super_.call(this, app);
 	
   this
 		.get('/users/login', (req, res) => res.render('users/login.pug'))
@@ -50,37 +51,53 @@ function UserController(app) {
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
 		.post('/users/logout/json', this.post_logout_json)
-		.post('/users/settings/general', this.updateImage)
-		.use('/users/data/image', express.static(global.config.userdir_images))
+		.post('/users/settings/general', this.post_settings_general)
+		.use('/users/data/image', express.static(global.config.userdir_images));
 }
-inherits(UserController)
+inherits(UserController);
 
-UserController.prototype.updateImage = function(req, res, next) {
-	debug('attempting to update user image')
-
-	var form = new multiparty.Form(AccountImageFormOptions)
+UserController.prototype.post_settings_general = function(req, res, next) {
+	var form = new multiparty.Form(UserSettingsGeneralForm);
+	var user = res.locals.user;
+	var change = false;
+	
+	debug('updating general settings for', user.name);
+	
 	form.parse(req, (e, fields, files) => {
-		if(e) return next(e)
+		console.log(fields, files);
+		if(e) return next(e);
 		
-		var image = files.image[0]
-		if(image) {
+		if(fields.delete_image) {
+			user.image_name = null;
+			change = true;
+		}
+		
+		var image = files.image[0];
+		if(image && image.size) {
 
 			filepath = path.format({
 				dir: path.dirname(image.path),
-				name: res.locals.user.name,
+				name: user.name,
 				ext: path.extname(image.path)
-			})
+			});
 			
 			fs.rename(image.path, filepath, e => {
-				if(e) return next(e)
-				res.locals.user.image_name = path.basename(filepath)
-				res.locals.user.save().then(() => {
-					res.redirect('/users/settings')
-				}).catch(next)
-			})
+				if(e) return next(e);
+				user.image_name = path.basename(filepath);
+				user.save().then(() => {
+					res.redirect('/users/settings/general');
+				}).catch(next);
+			});
+			//debug('image saved... (not really)');
 			
 		} else {
-			res.redirect('/users/settings')
+			if(change) {
+				user.save().then(() => {
+					res.redirect('/users/settings/general');
+				}).catch(next);
+			} else {
+				res.redirect('/users/settings/general');
+			}
 		}
 	})
 }

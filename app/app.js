@@ -12,19 +12,18 @@ const MainController = require('./core/main.js')
 const UserController = require('./users/controller.js')
 
 const debug = require('debug')('app')
-//const debug_route = require('debug')('route')
 
 /**
 * Main application controller
 */
 function App(api, opts) {
-  const app = express()
+  const app = express();
 
-  this.app = app
-  this.api = api
-  this.server = createServer(app, opts.server.port || 80)
-	this.tempdir = opts.tempdir
-	this.userdir = opts.userdir
+  this.app = app;
+  this.api = api;
+  this.server = createServer(app, opts.server.port || 80);
+	this.tempdir = opts.tempdir;
+	this.userdir = opts.userdir;
 
   app.set('view engine', 'pug');
   app.set('views', './public');
@@ -39,6 +38,7 @@ function App(api, opts) {
   app.use('/vendor/js', static('/jquery/dist', true));
   app.use('/css', static('public'));
   app.use('/js', static('public'));
+	app.use('/userdata', static(this.userdir))
   //app.use('/img', static('public/img/'));
 
 	app.use(sessions({

@@ -5,7 +5,7 @@ module.exports.inherits = inherits
 module.exports.Controller = Controller
 
 // prototypes created at runtime
-const router_methods = ['param', 'all', 'get', 'post', 'delete', 'put']
+const router_methods = ['param', 'all', 'get', 'post', 'delete', 'put', 'patch']
 
 /**
 * @typedef Controller

@@ -32,11 +32,22 @@ const UserSchema = new Schema({
 
 UserSchema.pre('save', beforeSave)
 function beforeSave(next) {
+  debug('Modifying user', this.name);
   if (!this.name) {
     this.name = this.email.replace(/@.*/,'');
   }
   next();
-}
+};
+
+UserSchema.methods.getImageAsResource = function() {
+  var path = this.image_name;
+  return path;
+};
+
+UserSchema.methods.hasImageResource = function() {
+  var hasResource = this.image_name ? this.image_name.length > 0 : false;
+  return hasResource;
+};
 
 /**
 * Returns an object with **only** the required data meant to reside in client cookies.
@@ -46,7 +57,7 @@ UserSchema.methods.public = function() {
     _id: this._id,
     session_key: this.session_key
   };
-  return public
+  return public;
 }
 
 UserSchema.methods.resetSession = function() {

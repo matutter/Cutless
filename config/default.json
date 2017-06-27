@@ -23,6 +23,6 @@
     "/",
     "/favicon.ico"
   ],
-  "tempdir": "/tmp/dropsite",
-  "userdir": "/tmp/dropsite/userdata"
+  "tempdir": "./tmp/",
+  "userdir": "./tmp/userdata"
 }

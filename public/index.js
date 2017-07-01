@@ -1,5 +1,11 @@
 $(document).ready(function() {
   
+  $('#show-password-form').click(function() {
+    var target = $(this).attr('data-target')
+    console.log(target)
+    $(target).collapse('toggle');
+  });
+  
   var toggle_btn = new ToggleButton('#delete-image', {tooltip: 1});
   
   var file_preview = new FilePreview({

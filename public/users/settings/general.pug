@@ -1,7 +1,10 @@
 extends ./index.pug
 
+block title
+  title Settings | General
+
 block settings-content
-  .offset-2.col-8
+  .offset-2.col-8.offset-lg-3.col-lg-6
     form#general-settings(method='POST' action='/users/settings/general' enctype='multipart/form-data')
       .form-group.row
         label.col-2.col-form-label(for='#user-image') Image

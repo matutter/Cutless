@@ -25,6 +25,12 @@ const AccountNameUpdateError = ApiError(
   status: 406, // not acceptable
 });
 
+const PasswordUpdateConfirmError = ApiError(
+  'Bad Password', 
+  'The passwords you\'ve entered do not match.', {
+  status: 406, // not acceptable
+});
+
 module.exports = UserController;
 
 function UserController(app) {
@@ -50,11 +56,29 @@ function UserController(app) {
 		.post('/users/login/json', this.post_login_json)
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
+		.post('/users/settings/security/password', this.post_settings_sec_password)
 		.post('/users/logout/json', this.post_logout_json)
 		.post('/users/settings/general', uploadSettings, this.post_settings_general)
 		.use('/users/data/image', express.static(app.userdir));
 }
 inherits(UserController);
+
+UserController.prototype.post_settings_sec_password = function(req, res, next) {
+	var user = res.locals.user;
+	var form = req.body;
+	
+	if(form.password != form.password_confirm) {
+		return next(new PasswordUpdateConfirmError())
+	}
+	
+	this.api.users.updatePassword(form.current, form.password, user).then(updated => {
+		if(updated) {
+			res.redirect('/users/login');
+		} else {
+			throw new Error('Cannot update password as this time');
+		}
+	}).catch(next);
+};
 
 UserController.prototype.post_settings_general = function(req, res, next) {
 	var user = res.locals.user;

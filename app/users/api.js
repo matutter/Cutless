@@ -71,6 +71,8 @@ function login(opts) {
   })
 }
 
+
+
 /**
 * Create a new user.
 * @param options {
@@ -119,6 +121,35 @@ function verifySession(opts) {
   return User.findOne({_id: opts._id, session_key: opts.session_key});
 }
 
+/**
+* Change a user's password to a new one.
+* @param current {String} The current password.
+* @param new_passowrd {String} The new password.
+*/
+function updatePassword(current, new_password, user) {
+  
+  if(user == null || user === undefined) {
+    return new NoSuchUser().reject();
+  }
+  
+  return user.hashPassword(current).then(password_hash => {
+    if(password_hash.equals(user.password_hash)) {
+      return user.hashPassword(new_password)
+    } else {
+      return new LoginPasswordError().reject()
+    }
+  }).then(new_hash => {
+      user.password_hash = new_hash;
+
+      return user.save().catch(e => {
+        return new RegistrationError().setError(e).reject();
+      })
+  })
+  .then(user => user.resetSession().return(true))
+}
+
+
+module.exports.updatePassword = updatePassword;
 module.exports.verifySession = verifySession;
 module.exports.login = login;
 module.exports.logout = logout;

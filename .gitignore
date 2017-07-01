@@ -5,3 +5,4 @@ heapdump*
 *.css
 *.css.map
 .sass-cache/
+tmp/

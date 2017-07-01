@@ -5,11 +5,11 @@
 */
 const inherits = require('../core/Controller.js').inherits;
 const debug = require('debug')('app.users.controller');
-const multiparty = require('multiparty');
 const validator = require('validator');
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const multer = require('multer');
 
 debug('loaded');
 
@@ -25,20 +25,20 @@ const AccountNameUpdateError = ApiError(
   status: 406, // not acceptable
 });
 
-UserSettingsGeneralForm = {
-	maxFields: 4,
-	minFields: 1,
-	autoFiles: true,
-	maxFilesSize: 200000,
-	uploadDir: global.config.userdir_images
-};
-
 module.exports = UserController;
 
 function UserController(app) {
   UserController.super_.call(this, app);
-	
-  this
+
+	const upload = multer({ dest: app.userdir });
+	const uploadSettings = upload.fields([
+		{ name: 'image', maxCount: 1 },
+		{ name: 'delete_image', maxCount: 1 },
+		{ name: 'name', maxCount: 1 },
+		{ name: 'email', maxCount: 1 }
+	]);
+
+	this
 		.get('/users/login', (req, res) => res.render('users/login.pug'))
 		.get('/users/logout', (req, res) => res.render('users/logout.pug'))
     .get('/users/register', (req, res) => res.render('users/register.pug'))
@@ -51,55 +51,34 @@ function UserController(app) {
 		.post('/users/register', this.register)
 		.post('/users/register/json', this.register)
 		.post('/users/logout/json', this.post_logout_json)
-		.post('/users/settings/general', this.post_settings_general)
-		.use('/users/data/image', express.static(global.config.userdir_images));
+		.post('/users/settings/general', uploadSettings, this.post_settings_general)
+		.use('/users/data/image', express.static(app.userdir));
 }
 inherits(UserController);
 
 UserController.prototype.post_settings_general = function(req, res, next) {
-	var form = new multiparty.Form(UserSettingsGeneralForm);
 	var user = res.locals.user;
-	var change = false;
+	var form = req.body;
 	
 	debug('updating general settings for', user.name);
 	
-	form.parse(req, (e, fields, files) => {
-		console.log(fields, files);
-		if(e) return next(e);
-		
-		if(fields.delete_image) {
-			user.image_name = null;
-			change = true;
-		}
-		
-		var image = files.image[0];
-		if(image && image.size) {
-
-			filepath = path.format({
-				dir: path.dirname(image.path),
-				name: user.name,
-				ext: path.extname(image.path)
-			});
-			
-			fs.rename(image.path, filepath, e => {
-				if(e) return next(e);
-				user.image_name = path.basename(filepath);
-				user.save().then(() => {
-					res.redirect('/users/settings/general');
-				}).catch(next);
-			});
-			//debug('image saved... (not really)');
-			
-		} else {
-			if(change) {
-				user.save().then(() => {
-					res.redirect('/users/settings/general');
-				}).catch(next);
-			} else {
-				res.redirect('/users/settings/general');
-			}
-		}
-	})
+	if(form.delete_image) {
+		user.image_name = null;
+	}
+	if(form.name) {
+		user.name = form.name;
+	}
+	if(form.email) {
+		user.email = form.email;
+	}
+	if(req.files.image && req.files.image[0]) {
+		var image = req.files.image[0];
+		user.image_name = image.filename;
+	}
+	
+	user.save().then(() => {
+		res.redirect('/users/settings/general');
+	}).catch(next);
 }
 
 UserController.prototype.updateProfile = function(req, res, next) {

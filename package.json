@@ -13,9 +13,9 @@
     "url": "git+https://github.com/matutter/dropsite.git"
   },
   "keywords": [
-    "drop",
-    "node",
-    "dropsite"
+    "basic",
+    "template",
+    "application"
   ],
   "author": "matutter",
   "license": "ISC",
@@ -34,7 +34,7 @@
     "jquery": "^3.2.1",
     "mkdirp": "^0.5.1",
     "mongoose": "^4.10.4",
-    "multiparty": "^4.1.3",
+    "multer": "^1.3.0",
     "pug": "^2.0.0-rc.1",
     "tether": "^1.4.0",
     "validator": "^6.3.0"

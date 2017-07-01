@@ -1,10 +1,9 @@
 module.exports = App
 
-const bodyParser = require('body-parser')
-const express = require('express')
-const path = require('path')
-const sessions = require('client-sessions')
-
+const bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const sessions = require('client-sessions');
 const createServer = require('./server.js').createServer
 
 // feature controllers
@@ -78,6 +77,7 @@ App.prototype.listen = function(cb) {
 };
 
 App.prototype.catchAll = function(e, req, res, next) {
+	debug(e)
   if (e.bubble) {
     res.status(e.status).json(e)
   } else {

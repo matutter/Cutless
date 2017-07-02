@@ -1,3 +1,10 @@
 extends ./index.pug
 
 block settings-content
+  .offset-3.col-6
+    for event in events
+      .row
+        .event.alert.alert-default.mb-1.p-1
+          span
+            strong #{event.message} 
+            span.timeago(title=event.createdAt)=event.createdAt

@@ -50,7 +50,7 @@ function UserController(app) {
     .get('/users/register', (req, res) => res.render('users/register.pug'))
     .get('/users/settings', (req, res) => res.redirect('/users/settings/general'))
     .get('/users/settings/general', (req, res) => res.render('users/settings/general.pug'))
-    .get('/users/settings/activity', (req, res) => res.render('users/settings/activity.pug'))
+    .get('/users/settings/activity', this.get_activity, (req, res) => res.render('users/settings/activity.pug'))
     .get('/users/settings/security', (req, res) => res.render('users/settings/security.pug'))
 		.post('/users/login', this.post_login)
 		.post('/users/login/json', this.post_login_json)
@@ -62,6 +62,20 @@ function UserController(app) {
 		.use('/users/data/image', express.static(app.userdir));
 }
 inherits(UserController);
+
+UserController.prototype.get_activity = function(req, res, next) {
+	var user = res.locals.user;
+	var skip = 0;
+	var limit = 10;
+	this.api.events.users.find({user: user._id})
+		.sort('-createdAt')
+		.skip(skip)
+		.limit(limit)
+		.then(events => {
+			res.locals.events = events;
+			next();
+	}).catch(next)
+}
 
 UserController.prototype.post_settings_sec_password = function(req, res, next) {
 	var user = res.locals.user;
@@ -75,7 +89,7 @@ UserController.prototype.post_settings_sec_password = function(req, res, next) {
 		if(updated) {
 			res.redirect('/users/login');
 		} else {
-			throw new Error('Cannot update password as this time');
+			throw new Error('Cannot update password at this time');
 		}
 	}).catch(next);
 };
@@ -154,18 +168,28 @@ UserController.prototype.post_login_json = function(req, res, next) {
 	}).catch(next)
 }
 
-UserController.prototype.login = function(req) {
-  debug('attempting login', req.body)
-
+UserController.prototype.login = function(req, res, next) {
 	return this.api.users.login(req.body).then(user => {
 	 	// sets cookie
 		req.session.user = user.public()
 		return user;
-	}).tap(user => this.api.events.users.create(user, `"${user.name}" logged in`, ['login']))
+	}).tap(user => {
+		return this.api.events.users.create(user, `${user._id} logged in successfully`, ['users', 'login'])
+	}).catch(e => {
+		if(e.user_id) {
+			var user_id = e.user_id;
+			this.api.events.users.create(
+				{ _id: user_id },
+				`An incorrect password for was used for ${user_id}`,
+				['users', 'login', 'failure']
+			).catch(debug)
+		}
+		return Promise.reject(e);
+	});
 };
 
 UserController.prototype.register = function(req, res, next) {
-	debug('attempting register for "%s"', req.body.email)
+	//debug('attempting register for "%s"', req.body.email)
 
 	if(res.locals.session) {
 		return res.json({ action: '/users/register', result: 0 })
@@ -181,17 +205,20 @@ UserController.prototype.register = function(req, res, next) {
 		} else {
 			res.redirect('/')
 		}
-	}).catch(next)
+	}).tap(user => {
+		return this.api.events.users.create(user, `${user._id} registered a new account`, ['users', 'register'])
+	}).catch(next);
 }
 
 UserController.prototype.post_logout_json = function(req, res, next) {
-	debug('attempting logout', req.body)
-
-	this.api.users.logout(req.body, res.locals.user).then(may_logout => {
+	const user = res.locals.user;
+	this.api.users.logout(req.body, user).then(may_logout => {
 		
 		if(may_logout)
 			delete req.session.user
 
 		res.json({ action: '/api/users/logout', result: (may_logout ? 1: 0) })
-	}).catch(next)
+	}).tap(() => {
+		return this.api.events.users.create(user, `${user._id} signed out`, ['users', 'signout'])
+	}).catch(next);
 }

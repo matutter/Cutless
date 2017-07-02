@@ -1,4 +1,30 @@
+user = undefined;
+
 $(document).ready(function() {
+  
+  $('.timeago').timeago();
+  
+  $(document).find('meta.user-data').each(function() {
+    var user_obj = { length: 0 };
+    $.each(this.attributes, function(i, attrib){
+      var name = attrib.name;
+      var value = attrib.value;
+      if(name == 'class') return;
+      user_obj[name] = value;
+      user_obj.length++;
+    });
+    if(user_obj.length) {
+      user = user_obj;
+    }
+  });
+  
+  if(user) {
+    $('.event').each(function() {
+      var text = $(this).html();
+      text = text.replace(user._id, user.name);
+      $(this).html(text);
+    });
+  }
   
   $('#show-password-form').click(function() {
     var target = $(this).attr('data-target')

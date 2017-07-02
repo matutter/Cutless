@@ -12,31 +12,34 @@ nav.navbar.navbar-toggleable-md.fixed-top.navbar-inverse.bg-primary
   #navbar.collapse.navbar-collapse
   
     ul.navbar-nav.mr-auto
-    
-      li.nav-item.active
+      li.nav-item
         a.nav-link(href='/') Home
-          span.sr-only(current)
 
     block navbar-right
       if user
-        .navbar-text
-          #user-name=user.name
-
-
         ul.navbar-nav
           li.nav-item.dropdown
-            a.btn.nav-link.dropdown-toggle#nav-dropdown(data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-              i.fa.fa-cog
+            a.nav-link.dropdown-toggle#nav-dropdown(
+              href='#'
+              data-toggle='dropdown'
+              aria-haspopup='true'
+              aria-expanded='false'
+            )
+              i.fa.fa-user-circle-o
+              span.ml-1 #{user.name}
             .dropdown-menu.dropdown-menu-right(aria-labelledby='nav-dropdown')
               a.dropdown-item(href='/users/settings')
                 i.fa.fa-wrench
                 span.fa-fit Settings
               .dropdown-divider
               a.dropdown-item(href='/users/logout')
-                i.fa
+                i.fa.fa-sign-out
                 span.fa-fit Sign Out
 
       else
         ul.navbar-nav
           .navbar-item
-            a.btn(href='/users/login') Sign In
+            a.nav-link(href='/users/login')
+              i.fa.fa-sign-in
+              span.ml-1 Sign In
+            

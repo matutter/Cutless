@@ -14,9 +14,14 @@ function createUserEvent(user, msg, tags) {
   });
 }
 
+function findUserEvent(query) {
+  return Events.UserEventModel.find(query)
+}
+
 module.exports = {
   create: Events.EventModel.create.bind(Events.EventModel),
   users: {
-    create: createUserEvent
+    create: createUserEvent,
+    find: findUserEvent
   }
 };

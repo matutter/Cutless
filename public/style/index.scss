@@ -2,12 +2,6 @@
 @import "hr-with-text";
 
 html, body {
-  //background-color: $gray-dark;
-  //color: lighten($gray-dark, 40%);
-}
-
-.modal-header + .modal-footer {
-  border-top-width: 0;
 }
 
 nav.navbar.navbar-inverse {
@@ -16,17 +10,9 @@ nav.navbar.navbar-inverse {
   }
 }
 
-#user-name {
-  padding: 0 15px;
-  margin-right: 6px;
-  border-right: 1px solid darken($blue, 5);
-}
-
-#nav-dropdown:hover {
-  cursor: pointer;
-  .fa {
-    color: #fff;
-  }
+.alert-default {
+  border-color: $gray-lighter;
+  background-color: $gray-lightest;
 }
 
 .dropdown-item .fa + span.fa-fit {

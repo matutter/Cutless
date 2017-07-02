@@ -35,6 +35,7 @@ function App(api, opts) {
   app.use('/vendor/fonts', static('/font-awesome/fonts', true));
   
   app.use('/vendor/js', static('/jquery/dist', true));
+  app.use('/vendor/js', static('/timeago/', true));
   app.use('/css', static('public'));
   app.use('/js', static('public'));
 	app.use('/userdata', static(this.userdir))

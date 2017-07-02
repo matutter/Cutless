@@ -51,7 +51,7 @@ const RegistrationError = ApiError(
 * @return {models.User} User instance is returned on success else null or error.
 */
 function login(opts) {
-  debug('login for %s...', opts.email);
+  //debug('login for %s...', opts.email);
   
   return User.findOne({email: opts.email}).then(user => {
     
@@ -62,8 +62,10 @@ function login(opts) {
         if(password_hash && password_hash.equals(user.password_hash)) {
           return user.resetSession()
         }
-
-        return new LoginPasswordError().reject()
+        
+        var e = new LoginPasswordError();
+        e.user_id = user._id;
+        return e.reject()
       })
     } else {
       return new LoginUsernameError().reject()

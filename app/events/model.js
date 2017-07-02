@@ -29,7 +29,7 @@ const UserEventSchema = new Schema({
 }, options)
 
 EventSchema.pre('save', beforeSave)
-UserEventSchema.pre('save', beforeSave)
+//UserEventSchema.pre('save', beforeSave)
 
 const EventModel = mongoose.model('Event', EventSchema);
 const UserEventModel = EventModel.discriminator('user', UserEventSchema);

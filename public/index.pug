@@ -10,6 +10,9 @@ html(lang="en")
       +css('/css/style/index.css')
     block css-local
 
+    if user
+      include user-data.pug
+
   body
     block body
       include navbar.pug
@@ -22,6 +25,7 @@ html(lang="en")
       +js('/vendor/js/jquery.min.js')
       +js('/vendor/js/tether.min.js')
       +js('/vendor/js/bootstrap.min.js')
+      +js('/vendor/js/jquery.timeago.js')
       +js('/js/index.js')
       +js('/js/scripts/SwapElements.js')
       +js('/js/scripts/FilePreview.js')

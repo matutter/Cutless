@@ -32,7 +32,7 @@ const UserSchema = new Schema({
 
 UserSchema.pre('save', beforeSave)
 function beforeSave(next) {
-  debug('Modifying user', this.name);
+  //debug('Modifying user', this.name);
   if (!this.name) {
     this.name = this.email.replace(/@.*/,'');
   }

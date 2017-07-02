@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "gulp monitor",
-    "sass": "sass -I ./node_modules/bootstrap/scss --watch public"
+    "sass": "sass -I ./node_modules/bootstrap/scss --watch public",
+    "postinstall": "sass -I ./node_modules/bootstrap/scss --update public"
   },
   "repository": {
     "type": "git",

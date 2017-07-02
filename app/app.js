@@ -4,11 +4,12 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
 const sessions = require('client-sessions');
-const createServer = require('./server.js').createServer
+const createServer = require('./server.js').createServer;
 
 // feature controllers
-const MainController = require('./core/main.js')
-const UserController = require('./users/controller.js')
+const MainController = require('./core/main.js');
+const UserController = require('./users/controller.js');
+const EventController = require('./events/controller.js');
 
 const debug = require('debug')('app')
 
@@ -54,7 +55,8 @@ function App(api, opts) {
   //app.use(session(s_opts));
   
   this.main = new MainController(this);
-  this.user = new UserController(this);
+  this.users = new UserController(this);
+	this.events = new EventController(this);
   
   app.use(this.catchAll.bind(this))
 }

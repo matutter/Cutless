@@ -92,7 +92,7 @@ function register(opts) {
       return user.save().catch(e => {
         return new RegistrationError().setError(e).reject();
       })
-    }).tap(debug);
+    });
 }
 
 /**

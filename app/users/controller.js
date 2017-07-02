@@ -174,39 +174,27 @@ UserController.prototype.login = function(req, res, next) {
 		req.session.user = user.public()
 		return user;
 	}).tap(user => {
-		return this.api.events.users.create(user, `${user._id} logged in successfully`, ['users', 'login'])
-	}).catch(e => {
-		if(e.user_id) {
-			var user_id = e.user_id;
-			this.api.events.users.create(
-				{ _id: user_id },
-				`An incorrect password for was used for ${user_id}`,
-				['users', 'login', 'failure']
-			).catch(debug)
-		}
-		return Promise.reject(e);
-	});
+		this.emit('login', user, req);
+	})
 };
 
 UserController.prototype.register = function(req, res, next) {
 	//debug('attempting register for "%s"', req.body.email)
 
+	// already logged in
 	if(res.locals.session) {
-		return res.json({ action: '/users/register', result: 0 })
+		return res.redirect('/');
 	}
 
 	this.api.users.register(req.body).then(user => {
 
 		// sets cookie
-		req.session.user = user.public()
-
-		if(req.json) {
-			res.json({ action: '/users/register', result:1 })
-		} else {
-			res.redirect('/')
-		}
-	}).tap(user => {
-		return this.api.events.users.create(user, `${user._id} registered a new account`, ['users', 'register'])
+		req.session.user = user.public();
+		res.redirect('/');
+		return user;
+	}).then(user => {
+		this.emit('register', user, req);
+		return user;
 	}).catch(next);
 }
 
@@ -218,7 +206,12 @@ UserController.prototype.post_logout_json = function(req, res, next) {
 			delete req.session.user
 
 		res.json({ action: '/api/users/logout', result: (may_logout ? 1: 0) })
-	}).tap(() => {
-		return this.api.events.users.create(user, `${user._id} signed out`, ['users', 'signout'])
+		return may_logout;
+	}).tap(may_logout => {
+		var e = null;
+		if(!may_logout) {
+			e = new Error('Cannot log out.')
+		}
+		return this.emit('logout', user, req, e);
 	}).catch(next);
 }

@@ -6,21 +6,24 @@ const Schema = mongoose.Schema
 debug('loaded')
 
 const options = {
-  discriminatorKey: 'source',
-  timestamps: true
+  discriminatorKey: 'source'
 };
 
 const EventSchema = new Schema({
-  message : {
-    required: true,
-    type: String
-  },
+  method : { type: String },
+  action : { type: String, required: true },
+  issuer : { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  subject : { type: Schema.Types.ObjectId, ref: 'User' },
+  result : Number,
+  message : String,
   // any abitrary tags to help sort/search events
-  tags : [String]
+  tags : [String],
+  createdAt: { type: Date, default: Date.now }
 }, options);
 
 function beforeSave(next) {
-  debug(`${this.message} [${this.tags}]`);
+  var method = this.method || ''
+  debug(`${method}${this.action} issued by ${this.issuer._id}, result was ${this.result}: ${this.message}`);
   next();
 }
 

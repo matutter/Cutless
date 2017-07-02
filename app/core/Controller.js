@@ -1,6 +1,6 @@
 const util = require('util')
+var EventEmitter = require('events').EventEmitter;
 const debug = require('debug')('app.core.controller')
-
 module.exports.inherits = inherits
 module.exports.Controller = Controller
 
@@ -15,6 +15,7 @@ function Controller(app) {
   this.app = app.app;
   this.api = app.api;
 }
+util.inherits(Controller, EventEmitter);
 
 Controller.prototype.use = function(route, cb) {
   if(cb) {
@@ -34,7 +35,8 @@ for (var i = 0; i < router_methods.length; ++i) {
   Object.defineProperty(Controller.prototype, method_name, {
     enumerable: false,
     value: function(route, cb, next_cb) {
-      debug(method_name, route) 
+      //debug(method_name, route) 
+      
       if(next_cb) {
         this.app[method_name](route, cb.bind(this), next_cb.bind(this));
       } else {

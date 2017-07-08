@@ -1,6 +1,6 @@
 {
   "name": "cutless",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dropsite | A bare-bones web app template.",
   "main": "server.js",
   "scripts": {

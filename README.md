@@ -1,15 +1,13 @@
 # Cutless
-### NodeJS application built with reliable packages to provide a powerful web-framework to ignite new projects.
+### An app template to kick-start new projects.
 
 --------
 
 ## Why Cutless?
 
-Cutless is written with the goal of providing a well organized & powerful basic implementation of a
-modern web application in a boiler-plate package which is ready receive new features without imposing
-too many opinions of how the application should be written. Cutless offers basic entities such *Users*
-and *Events* which include basic apis, models, and controllers out of the box. With a strong and
-featureful foundation Cutless aims to be an ideal starting point to launch a new project from.
+Cutless seeks to provide an organized & powerful basic template of a
+modern web application. Cutless offers basic entities such *Users* and *Events* which include
+basic apis, models, and controllers to model new features off of.
 
 ## Notable packages
 

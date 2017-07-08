@@ -1,7 +1,7 @@
 {
   "name": "cutless",
   "version": "1.0.1",
-  "description": "Dropsite | A bare-bones web app template.",
+  "description": "Simple node application template.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
